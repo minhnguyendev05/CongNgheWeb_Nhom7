@@ -1,0 +1,2 @@
+<?php
+// statistics.php
