@@ -5,7 +5,12 @@ class Database {
     private $pdo;
 
     private function __construct() {
-        $config = require __DIR__ . '/config.php';
+        $config = [
+            'host' => 'localhost',
+            'dbname' => 'onlinecourse',
+            'username' => 'root',
+            'password' => ''
+        ];
         try {
             $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8mb4";
             $this->pdo = new PDO($dsn, $config['username'], $config['password']);
