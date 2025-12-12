@@ -52,8 +52,9 @@ class Course {
 
     public function update() {
         $pdo = Database::getInstance()->getConnection();
-        $stmt = $pdo->prepare("UPDATE courses SET title = ?, description = ?, category_id = ?, price = ?, duration_weeks = ?, level = ?, image = ?, status = ? WHERE id = ?");
-        $stmt->execute([$this->title, $this->description, $this->category_id, $this->price, $this->duration_weeks, $this->level, $this->image, $this->status, $this->id]);
+        // Only update editable fields, preserve instructor_id and status
+        $stmt = $pdo->prepare("UPDATE courses SET title = ?, description = ?, category_id = ?, price = ?, duration_weeks = ?, level = ?, image = ? WHERE id = ?");
+        $stmt->execute([$this->title, $this->description, $this->category_id, $this->price, $this->duration_weeks, $this->level, $this->image, $this->id]);
     }
 
     public static function delete($id) {
