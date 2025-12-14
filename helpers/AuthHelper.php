@@ -3,7 +3,7 @@
 
 function requireLogin() {
     if (!isset($_SESSION['user'])) {
-        header('Location: index.php?action=login');
+        header('Location: /login');
         exit;
     }
 }
@@ -11,7 +11,7 @@ function requireLogin() {
 function requireRole($role) {
     requireLogin();
     if ($_SESSION['user']['role'] != $role) {
-        header('Location: index.php?action=login');
+        header('Location: /login');
         exit;
     }
 }
@@ -19,11 +19,11 @@ function requireRole($role) {
 function redirectIfLoggedIn() {
     if (isset($_SESSION['user'])) {
         if ($_SESSION['user']['role'] == 1) {
-            header('Location: index.php?action=instructorDashboard');
+            header('Location: ' . BASE_PATH . '/instructor/dashboard');
         } elseif ($_SESSION['user']['role'] == 2) {
-            header('Location: index.php?action=adminDashboard');
+            header('Location: ' . BASE_PATH . '/admin/dashboard');
         } else {
-            header('Location: index.php?action=listCourses');
+            header('Location: ' . BASE_PATH . '/courses');
         }
         exit;
     }

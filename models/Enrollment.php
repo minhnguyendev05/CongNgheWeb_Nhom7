@@ -13,14 +13,41 @@ class Enrollment {
 
     public static function getEnrollmentsByStudent($studentId) {
         $pdo = Database::getInstance()->getConnection();
-        $stmt = $pdo->prepare("SELECT * FROM enrollments WHERE student_id = ?");
+        $stmt = $pdo->prepare("
+            SELECT 
+                e.*,
+                c.title as course_title,
+                c.description as course_description,
+                c.image as course_image,
+                u.fullname as instructor_name,
+                e.enrolled_date as enrollment_date
+            FROM enrollments e
+            LEFT JOIN courses c ON e.course_id = c.id
+            LEFT JOIN users u ON c.instructor_id = u.id
+            WHERE e.student_id = ?
+            ORDER BY e.enrolled_date DESC
+        ");
         $stmt->execute([$studentId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getEnrollmentsByCourse($courseId) {
         $pdo = Database::getInstance()->getConnection();
-        $stmt = $pdo->prepare("SELECT * FROM enrollments WHERE course_id = ?");
+        $stmt = $pdo->prepare("
+            SELECT 
+                e.*,
+                u.id as student_id,
+                u.fullname as student_name,
+                u.email as student_email,
+                u.avatar,
+                c.title as course_title,
+                e.enrolled_date as enrollment_date
+            FROM enrollments e
+            LEFT JOIN users u ON e.student_id = u.id
+            LEFT JOIN courses c ON e.course_id = c.id
+            WHERE e.course_id = ?
+            ORDER BY e.enrolled_date DESC
+        ");
         $stmt->execute([$courseId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

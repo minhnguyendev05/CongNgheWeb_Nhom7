@@ -6,6 +6,7 @@ require_once __DIR__ . '/../models/Enrollment.php';
 require_once __DIR__ . '/../models/Lesson.php';
 require_once __DIR__ . '/../models/Material.php';
 require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../helpers/ValidationHelper.php';
 
 class EnrollmentController {
 
@@ -59,7 +60,7 @@ class EnrollmentController {
 
     public function viewEnrolledCourseLessons($courseId) {
         if (!isset($_SESSION['user'])) {
-            header('Location: index.php?action=login');
+            header('Location: ' . BASE_PATH . '/login');
             exit;
         }
 
@@ -76,13 +77,13 @@ class EnrollmentController {
         }
 
         if (!$isEnrolled) {
-            header('Location: index.php?action=myCourses');
+            header('Location: ' . BASE_PATH . '/my-courses');
             exit;
         }
 
         $course = Course::getCourseById($courseId);
         if (!$course) {
-            header('Location: index.php?action=myCourses');
+            header('Location: ' . BASE_PATH . '/my-courses');
             exit;
         }
 
@@ -92,33 +93,53 @@ class EnrollmentController {
 
     public function enrollCourse($courseId) {
         if (!isset($_SESSION['user'])) {
-            header('Location: index.php?action=login');
+            header('Location: ' . BASE_PATH . '/login');
+            exit;
+        }
+
+        // Validate courseId is numeric
+        if (!is_numeric($courseId) || $courseId <= 0) {
+            header('Location: ' . BASE_PATH . '/courses');
+            exit;
+        }
+
+        // Check if course exists and is approved
+        $course = Course::getCourseById($courseId);
+        if (!$course || $course['status'] != 'approved') {
+            header('Location: ' . BASE_PATH . '/courses');
+            exit;
+        }
+
+        // Validate student_id
+        $studentId = $_SESSION['user']['id'];
+        if (!is_numeric($studentId) || $studentId <= 0) {
+            header('Location: ' . BASE_PATH . '/login');
             exit;
         }
 
         // Check if user is already enrolled in this course
-        $enrollments = Enrollment::getEnrollmentsByStudent($_SESSION['user']['id']);
+        $enrollments = Enrollment::getEnrollmentsByStudent($studentId);
         foreach ($enrollments as $e) {
             if ($e['course_id'] == $courseId) {
                 // User is already enrolled, redirect to my courses
-                header('Location: index.php?action=myCourses');
+                header('Location: ' . BASE_PATH . '/my-courses');
                 exit;
             }
         }
 
         $enrollment = new Enrollment();
         $enrollment->course_id = $courseId;
-        $enrollment->student_id = $_SESSION['user']['id'];
+        $enrollment->student_id = $studentId;
         $enrollment->status = 'active';
         $enrollment->progress = 0;
         $enrollment->save();
-        header('Location: index.php?action=myCourses');
+        header('Location: ' . BASE_PATH . '/my-courses');
         exit;
     }
 
     public function myCourses() {
         if (!isset($_SESSION['user'])) {
-            header('Location: index.php?action=login');
+            header('Location: ' . BASE_PATH . '/login');
             exit;
         }
         $enrollments = Enrollment::getEnrollmentsByStudent($_SESSION['user']['id']);
@@ -135,23 +156,33 @@ class EnrollmentController {
 
     public function studentDashboard() {
         if (!isset($_SESSION['user'])) {
-            header('Location: index.php?action=login');
+            header('Location: ' . BASE_PATH . '/login');
             exit;
         }
         $enrollments = Enrollment::getEnrollmentsByStudent($_SESSION['user']['id']);
+        
+        // Enrich enrollments with course data
+        foreach ($enrollments as &$enrollment) {
+            $course = Course::getCourseById($enrollment['course_id']);
+            if ($course) {
+                $enrollment['title'] = $course['title'] ?? 'Unknown Course';
+                $enrollment['course_data'] = $course;
+            }
+        }
+        
         require 'views/student/dashboard.php';
     }
 
     public function trackProgress($courseId) {
         if (!isset($_SESSION['user'])) {
-            header('Location: index.php?action=login');
+            header('Location: ' . BASE_PATH . '/login');
             exit;
         }
         $enrollments = Enrollment::getEnrollmentsByStudent($_SESSION['user']['id']);
         $enrollment = array_filter($enrollments, function($e) use ($courseId) { return $e['course_id'] == $courseId; });
         $enrollment = reset($enrollment);
         if (!$enrollment) {
-            header('Location: index.php?action=myCourses');
+            header('Location: ' . BASE_PATH . '/my-courses');
             exit;
         }
         $course = Course::getCourseById($courseId);
@@ -171,10 +202,23 @@ class EnrollmentController {
             $lesson = null;
             $course = null;
             $materials = [];
+            $lessons = [];
             $lessonNumber = 0;
         } else {
             $course = Course::getCourseById($lesson['course_id']);
+            // Add instructor_name to course
+            if ($course && isset($course['instructor_id'])) {
+                $stmt = $pdo->prepare("SELECT fullname FROM users WHERE id = ?");
+                $stmt->execute([$course['instructor_id']]);
+                $instructor = $stmt->fetch(PDO::FETCH_ASSOC);
+                $course['instructor_name'] = $instructor['fullname'] ?? 'Unknown Instructor';
+            }
+            
             $materials = Material::getMaterialsByLesson($lessonId);
+            
+            // Get all lessons in this course for navigation
+            $lessons = Lesson::getLessonsByCourse($lesson['course_id']);
+            
             // Get lesson number
             $stmt = $pdo->prepare("SELECT COUNT(*) as lesson_number FROM lessons WHERE course_id = ? AND id <= ?");
             $stmt->execute([$lesson['course_id'], $lessonId]);
@@ -186,7 +230,7 @@ class EnrollmentController {
     public function viewMaterial($materialId) {
         $material = Material::getMaterialById($materialId);
         if (!$material) {
-            header('Location: index.php?action=myCourses');
+            header('Location: ' . BASE_PATH . '/my-courses');
             exit;
         }
         // Check if user is enrolled in the course
@@ -203,7 +247,7 @@ class EnrollmentController {
             }
         }
         if (!$enrolled) {
-            header('Location: index.php?action=myCourses');
+            header('Location: ' . BASE_PATH . '/my-courses');
             exit;
         }
         // Serve the file
