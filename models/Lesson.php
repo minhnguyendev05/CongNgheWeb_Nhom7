@@ -36,6 +36,12 @@ class Lesson {
 
     public static function delete($id) {
         $pdo = Database::getInstance()->getConnection();
+        
+        // Delete all materials for this lesson first
+        $stmtMaterials = $pdo->prepare("DELETE FROM materials WHERE lesson_id = ?");
+        $stmtMaterials->execute([$id]);
+        
+        // Then delete the lesson
         $stmt = $pdo->prepare("DELETE FROM lessons WHERE id = ?");
         $stmt->execute([$id]);
     }

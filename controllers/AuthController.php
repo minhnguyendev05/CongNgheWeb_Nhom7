@@ -9,6 +9,7 @@ class AuthController {
 
     public function login() {
         redirectIfLoggedIn();
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['username', 'password']);
@@ -19,15 +20,20 @@ class AuthController {
 
                 $user = User::authenticate($username, $password);
                 if ($user) {
-                    $_SESSION['user'] = $user;
-                    if ($user['role'] == 1) {
-                        header('Location: ' . BASE_PATH . '/instructor/dashboard');
-                    } elseif ($user['role'] == 2) {
-                        header('Location: ' . BASE_PATH . '/admin/dashboard');
+                    // Check if user account is active
+                    if ($user['status'] !== 1) {
+                        $errors[] = "Your account has been deactivated. Please contact support.";
                     } else {
-                        header('Location: ' . BASE_PATH . '/courses');
+                        $_SESSION['user'] = $user;
+                        if ($user['role'] == 1) {
+                            header('Location: ' . BASE_PATH . '/instructor/dashboard');
+                        } elseif ($user['role'] == 2) {
+                            header('Location: ' . BASE_PATH . '/admin/dashboard');
+                        } else {
+                            header('Location: ' . BASE_PATH . '/courses');
+                        }
+                        exit;
                     }
-                    exit;
                 } else {
                     $errors[] = "Invalid credentials";
                 }
@@ -50,6 +56,7 @@ class AuthController {
 
     public function register() {
         redirectIfLoggedIn();
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['username', 'email', 'password', 'fullname']);
@@ -101,6 +108,7 @@ class AuthController {
 
     public function updateProfile() {
         requireLogin();
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['fullname', 'email']);
@@ -194,6 +202,7 @@ class AuthController {
 
     public function updatePassword() {
         requireLogin();
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['current_password', 'new_password', 'confirm_password']);

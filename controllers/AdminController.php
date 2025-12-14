@@ -29,6 +29,7 @@ class AdminController {
 
     public function createUser() {
         requireRole(2);
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['username', 'email', 'password', 'fullname', 'role']);
@@ -72,6 +73,7 @@ class AdminController {
 
     public function editUser($id) {
         requireRole(2);
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['username', 'email', 'fullname', 'role', 'status']);
@@ -145,6 +147,7 @@ class AdminController {
 
     public function createCategory() {
         requireRole(2);
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['name']);
@@ -175,6 +178,7 @@ class AdminController {
 
     public function editCategory($id) {
         requireRole(2);
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['name']);

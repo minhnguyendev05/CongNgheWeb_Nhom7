@@ -24,6 +24,7 @@ class CourseController {
 
     public function createCourse() {
         requireRole(1);
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['title', 'description', 'category_id', 'price', 'level']);
@@ -74,6 +75,7 @@ class CourseController {
 
     public function editCourse($courseId) {
         requireRole(1);
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['title', 'description', 'category_id', 'price', 'level']);
@@ -186,8 +188,7 @@ class CourseController {
         requireRole(1);
         $course = Course::getCourseById($courseId);
         if ($course['instructor_id'] != $_SESSION['user']['id']) {
-            echo "Access denied.";
-            return;
+            throw new Exception('Access denied: Not course owner', 403);
         }
         $enrollments = Enrollment::getEnrollmentsByCourse($courseId);
         $courses = Course::getCoursesByInstructor($_SESSION['user']['id']);
@@ -226,8 +227,7 @@ class CourseController {
         requireRole(1);
         $course = Course::getCourseById($courseId);
         if ($course['instructor_id'] != $_SESSION['user']['id']) {
-            echo "Access denied.";
-            return;
+            throw new Exception('Access denied: Not course owner', 403);
         }
         
         // Get student info
