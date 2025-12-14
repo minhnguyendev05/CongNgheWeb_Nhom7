@@ -52,7 +52,7 @@ class Route
                 return self::callAction($route, $params);
             }
         }
-
+        
         // Fallback to old system or 404
         return self::fallback($requestUri, $requestMethod);
     }

@@ -1185,6 +1185,7 @@
     border-radius: 20px;
     box-shadow: 0 8px 32px var(--soft-shadow);
     transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .content-card:hover {
@@ -1192,11 +1193,23 @@
     box-shadow: 0 20px 60px rgba(0,0,0,0.15);
 }
 
+.content-card .card-header {
+    background: white !important;
+    border-bottom: 1px solid var(--soft-border) !important;
+}
+
+.content-card .card-body {
+    padding: 0 !important;
+}
+
 .lesson-item {
-    padding: 1rem;
+    padding: 1.5rem;
     border-bottom: 1px solid var(--soft-border);
     transition: all 0.3s ease;
     cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
 .lesson-item:hover {
@@ -1207,17 +1220,65 @@
     border-bottom: none;
 }
 
-.lesson-icon {
-    width: 40px;
-    height: 40px;
+.lesson-number {
+    min-width: 45px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    background: var(--soft-primary);
+    background: linear-gradient(135deg, #a8c0ff 0%, #a8d5b8 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    margin-right: 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
 }
+
+.lesson-content {
+    flex: 1;
+}
+
+.lesson-title {
+    font-weight: 600;
+    color: var(--soft-text-dark);
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.lesson-description {
+    font-size: 0.95rem;
+    color: var(--soft-text);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.5;
+}
+
+.lesson-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--soft-text);
+}
+
+.lesson-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.lesson-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    min-width: fit-content;
+}
+
+.btn-lesson {
+    white-space: nowrap;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
 
 .btn-enroll {
     background: var(--soft-gradient);

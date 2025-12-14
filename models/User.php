@@ -9,6 +9,7 @@ class User {
     public $email;
     public $password;
     public $fullname;
+    public $avatar;
     public $role;
     public $status;
     public $created_at;
@@ -23,7 +24,24 @@ class User {
         $pdo = Database::getInstance()->getConnection();
         $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$data) {
+            return null;
+        }
+        
+        $user = new User();
+        $user->id = $data['id'];
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->fullname = $data['fullname'];
+        $user->avatar = $data['avatar'] ?? null;
+        $user->role = $data['role'];
+        $user->status = $data['status'];
+        $user->created_at = $data['created_at'];
+        
+        return $user;
     }
 
     public function save() {
@@ -35,8 +53,8 @@ class User {
 
     public function update() {
         $pdo = Database::getInstance()->getConnection();
-        $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ?, fullname = ?, role = ?, status = ? WHERE id = ?");
-        $stmt->execute([$this->username, $this->email, $this->fullname, $this->role, $this->status, $this->id]);
+        $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ?, fullname = ?, avatar = ?, role = ?, status = ? WHERE id = ?");
+        $stmt->execute([$this->username, $this->email, $this->fullname, $this->avatar, $this->role, $this->status, $this->id]);
     }
 
     public static function delete($id) {
