@@ -16,10 +16,10 @@ require 'views/layouts/sidebar.php';
                             </h1>
                             <p class="lead mb-4 opacity-75">Manage the platform and oversee all activities</p>
                             <div class="d-flex gap-3 flex-wrap">
-                                <a href="index.php?action=approveCourses" class="btn btn-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/admin/courses/approve" class="btn btn-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-check me-2"></i>Approve Courses
                                 </a>
-                                <a href="index.php?action=manageUsers" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/admin/users" class="btn btn-outline-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-users me-2"></i>Manage Users
                                 </a>
                             </div>
@@ -149,7 +149,7 @@ require 'views/layouts/sidebar.php';
                 </div>
                 <div class="card-body p-4">
                     <div class="d-grid gap-3">
-                        <a href="index.php?action=approveCourses" class="btn btn-primary btn-lg rounded-pill d-flex align-items-center justify-content-center">
+                        <a href="<?php echo BASE_PATH; ?>/admin/courses/approve" class="btn btn-primary btn-lg rounded-pill d-flex align-items-center justify-content-center">
                             <i class="fas fa-check fa-lg me-3"></i>
                             <div class="text-start">
                                 <div class="fw-bold">Approve Courses</div>
@@ -157,7 +157,7 @@ require 'views/layouts/sidebar.php';
                             </div>
                         </a>
 
-                        <a href="index.php?action=manageUsers" class="btn btn-outline-primary btn-lg rounded-pill d-flex align-items-center justify-content-center">
+                        <a href="<?php echo BASE_PATH; ?>/admin/users" class="btn btn-outline-primary btn-lg rounded-pill d-flex align-items-center justify-content-center">
                             <i class="fas fa-users fa-lg me-3"></i>
                             <div class="text-start">
                                 <div class="fw-bold">Manage Users</div>
@@ -165,7 +165,7 @@ require 'views/layouts/sidebar.php';
                             </div>
                         </a>
 
-                        <a href="index.php?action=manageCategories" class="btn btn-outline-success btn-lg rounded-pill d-flex align-items-center justify-content-center">
+                        <a href="<?php echo BASE_PATH; ?>/admin/categories" class="btn btn-outline-success btn-lg rounded-pill d-flex align-items-center justify-content-center">
                             <i class="fas fa-tags fa-lg me-3"></i>
                             <div class="text-start">
                                 <div class="fw-bold">Manage Categories</div>
@@ -173,7 +173,7 @@ require 'views/layouts/sidebar.php';
                             </div>
                         </a>
 
-                        <a href="index.php?action=viewStatistics" class="btn btn-outline-info btn-lg rounded-pill d-flex align-items-center justify-content-center">
+                        <a href="<?php echo BASE_PATH; ?>/admin/reports/statistics" class="btn btn-outline-info btn-lg rounded-pill d-flex align-items-center justify-content-center">
                             <i class="fas fa-chart-bar fa-lg me-3"></i>
                             <div class="text-start">
                                 <div class="fw-bold">View Statistics</div>
@@ -259,3 +259,7 @@ require 'views/layouts/sidebar.php';
 </div>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

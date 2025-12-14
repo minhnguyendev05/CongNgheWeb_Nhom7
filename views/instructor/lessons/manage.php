@@ -3,7 +3,7 @@ $title = 'Manage Lessons';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid dashboard-container">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -16,13 +16,13 @@ require 'views/layouts/header.php';
                             </h1>
                             <p class="lead mb-4 opacity-75">Organize, update, and manage your course lessons</p>
                             <div class="d-flex gap-3 flex-wrap">
-                                <a href="index.php?action=createLesson" class="btn btn-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $courseId; ?>/lesson/create" class="btn btn-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-plus me-2"></i>Create Lesson
                                 </a>
-                                <a href="index.php?action=manageCourses" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/courses" class="btn btn-outline-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-book me-2"></i>Manage Courses
                                 </a>
-                                <a href="index.php?action=dashboard" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/dashboard" class="btn btn-outline-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                                 </a>
                             </div>
@@ -51,14 +51,6 @@ require 'views/layouts/header.php';
                                 <p class="text-muted mb-0">Manage your course content</p>
                             </div>
                         </div>
-                        <div class="d-flex gap-2">
-                            <select class="form-select rounded-pill border-0 shadow-sm" id="courseFilter">
-                                <option value="">All Courses</option>
-                                <?php foreach ($courses as $course): ?>
-                                    <option value="<?php echo $course['id']; ?>"><?php echo htmlspecialchars($course['title']); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -76,7 +68,7 @@ require 'views/layouts/header.php';
                                 </thead>
                                 <tbody>
                                     <?php foreach ($lessons as $lesson): ?>
-                                        <tr class="lesson-row" data-course-id="<?php echo $lesson['course_id']; ?>">
+                                        <tr>
                                             <td class="ps-4 py-4">
                                                 <div class="d-flex align-items-center">
                                                     <div class="bg-primary bg-opacity-10 rounded-3 p-2 me-3">
@@ -105,7 +97,7 @@ require 'views/layouts/header.php';
                                             </td>
                                             <td class="py-4">
                                                 <div class="btn-group" role="group">
-                                                    <a href="index.php?action=editLesson&lessonId=<?php echo $lesson['id']; ?>" class="btn btn-outline-primary btn-sm rounded-pill me-1" title="Edit">
+                                                    <a href="<?php echo BASE_PATH; ?>/instructor/lesson/<?php echo $lesson['id']; ?>/edit" class="btn btn-outline-primary btn-sm rounded-pill me-1" title="Edit">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <button type="button" class="btn btn-outline-danger btn-sm rounded-pill" title="Delete" onclick="confirmDelete(<?php echo $lesson['id']; ?>, <?php echo $lesson['course_id']; ?>)">
@@ -123,7 +115,7 @@ require 'views/layouts/header.php';
                             <i class="fas fa-book-open fa-4x text-muted mb-3"></i>
                             <h5 class="text-muted">No lessons found</h5>
                             <p class="text-muted">Start by creating your first lesson</p>
-                            <a href="index.php?action=createLesson" class="btn btn-primary rounded-pill px-4">
+                            <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $courseId; ?>/lesson/create" class="btn btn-primary rounded-pill px-4">
                                 <i class="fas fa-plus me-2"></i>Create First Lesson
                             </a>
                         </div>
@@ -149,7 +141,9 @@ require 'views/layouts/header.php';
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                <a href="#" id="deleteLink" class="btn btn-danger rounded-pill px-4">Delete Lesson</a>
+                <form method="POST" action="" id="deleteForm" style="display: inline;">
+                    <button type="submit" class="btn btn-danger rounded-pill px-4">Delete Lesson</button>
+                </form>
             </div>
         </div>
     </div>
@@ -158,31 +152,16 @@ require 'views/layouts/header.php';
 
 
 <script>
-AOS.init({
-    duration: 800,
-    once: true
-});
-
 function confirmDelete(lessonId, courseId) {
-    const deleteLink = document.getElementById('deleteLink');
-    deleteLink.href = `index.php?action=deleteLesson&lessonId=${lessonId}&courseId=${courseId}`;
+    const deleteForm = document.getElementById('deleteForm');
+    deleteForm.action = `<?php echo BASE_PATH; ?>/instructor/lesson/${lessonId}/delete`;
     const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
     modal.show();
 }
-
-// Course filter functionality
-document.getElementById('courseFilter').addEventListener('change', function() {
-    const selectedCourseId = this.value;
-    const rows = document.querySelectorAll('.lesson-row');
-
-    rows.forEach(row => {
-        if (selectedCourseId === '' || row.dataset.courseId === selectedCourseId) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-});
 </script>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

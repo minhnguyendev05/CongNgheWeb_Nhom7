@@ -9,7 +9,7 @@ require 'views/layouts/header.php';
     <!-- Welcome Header -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
-            <div class="welcome-header">
+            <div class="welcome-header text-white">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
                         <h1 class="display-5 fw-bold">
@@ -17,10 +17,10 @@ require 'views/layouts/header.php';
                         </h1>
                         <p class="lead mb-4">Quản lý nền tảng và giám sát tất cả hoạt động</p>
                         <div class="welcome-actions">
-                            <a href="index.php?action=approveCourses" class="btn-welcome">
+                            <a href="<?php echo BASE_PATH; ?>/admin/courses/approve" class="btn-welcome">
                                 <i class="fas fa-check me-2"></i>Duyệt khóa học
                             </a>
-                            <a href="index.php?action=manageUsers" class="btn-welcome">
+                            <a href="<?php echo BASE_PATH; ?>/admin/users" class="btn-welcome">
                                 <i class="fas fa-users me-2"></i>Quản lý người dùng
                             </a>
                         </div>
@@ -132,7 +132,7 @@ require 'views/layouts/header.php';
             </div>
 
             <div class="d-grid gap-3">
-                <a href="index.php?action=approveCourses" class="action-button action-approve">
+                <a href="<?php echo BASE_PATH; ?>/admin/courses/approve" class="action-button action-approve">
                     <div class="action-icon">
                         <i class="fas fa-check"></i>
                     </div>
@@ -142,7 +142,7 @@ require 'views/layouts/header.php';
                     </div>
                 </a>
 
-                <a href="index.php?action=manageUsers" class="action-button action-users">
+                <a href="<?php echo BASE_PATH; ?>/admin/users" class="action-button action-users">
                     <div class="action-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -152,7 +152,7 @@ require 'views/layouts/header.php';
                     </div>
                 </a>
 
-                <a href="index.php?action=manageCategories" class="action-button action-categories">
+                <a href="<?php echo BASE_PATH; ?>/admin/categories" class="action-button action-categories">
                     <div class="action-icon">
                         <i class="fas fa-tags"></i>
                     </div>
@@ -162,7 +162,7 @@ require 'views/layouts/header.php';
                     </div>
                 </a>
 
-                <a href="index.php?action=viewStatistics" class="action-button action-stats">
+                <a href="<?php echo BASE_PATH; ?>/admin/statistics" class="action-button action-stats">
                     <div class="action-icon">
                         <i class="fas fa-chart-bar"></i>
                     </div>
@@ -231,3 +231,7 @@ require 'views/layouts/header.php';
 </div>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

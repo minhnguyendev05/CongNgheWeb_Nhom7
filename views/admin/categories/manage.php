@@ -3,7 +3,7 @@ $title = 'Manage Categories';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -46,7 +46,7 @@ require 'views/layouts/header.php';
                             </div>
                         </div>
                         <div class="d-flex gap-2">
-                            <a href="index.php?action=createCategory" class="btn btn-success rounded-pill">
+                            <a href="<?php echo BASE_PATH; ?>/admin/category/create" class="btn btn-success rounded-pill">
                                 <i class="fas fa-plus me-2"></i>Create Category
                             </a>
                         </div>
@@ -71,12 +71,14 @@ require 'views/layouts/header.php';
                                     <td class="py-3 text-muted"><?php echo htmlspecialchars($category['description']); ?></td>
                                     <td class="pe-4 py-3">
                                         <div class="d-flex gap-2">
-                                            <a href="index.php?action=editCategory&id=<?php echo $category['id']; ?>" class="btn btn-outline-warning btn-sm rounded-pill">
+                                            <a href="<?php echo BASE_PATH; ?>/admin/category/<?php echo $category['id']; ?>/edit" class="btn btn-outline-warning btn-sm rounded-pill">
                                                 <i class="fas fa-edit me-1"></i>Edit
                                             </a>
-                                            <a href="index.php?action=deleteCategory&id=<?php echo $category['id']; ?>" class="btn btn-outline-danger btn-sm rounded-pill" onclick="return confirm('Are you sure?')">
-                                                <i class="fas fa-trash me-1"></i>Delete
-                                            </a>
+                                            <form method="POST" action="<?php echo BASE_PATH; ?>/admin/category/<?php echo $category['id']; ?>/delete" style="display: inline;">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill" onclick="return confirm('Are you sure?')">
+                                                    <i class="fas fa-trash me-1"></i>Delete
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -91,3 +93,7 @@ require 'views/layouts/header.php';
 </div>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

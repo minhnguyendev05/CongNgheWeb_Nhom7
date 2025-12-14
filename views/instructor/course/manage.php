@@ -3,7 +3,7 @@ $title = 'Manage Courses';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid dashboard-container">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -16,10 +16,10 @@ require 'views/layouts/header.php';
                             </h1>
                             <p class="lead mb-4 opacity-75">Organize, update, and track your course performance</p>
                             <div class="d-flex gap-3 flex-wrap">
-                                <a href="index.php?action=createCourse" class="btn btn-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/course/create" class="btn btn-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-plus me-2"></i>Create Course
                                 </a>
-                                <a href="index.php?action=dashboard" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/dashboard" class="btn btn-outline-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                                 </a>
                             </div>
@@ -41,7 +41,7 @@ require 'views/layouts/header.php';
                 <div class="col-xl-4 col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>">
                     <div class="card h-100 border-0 shadow-lg course-card rounded-4 overflow-hidden hover-lift">
                         <div class="card-img-wrapper position-relative">
-                            <img src="<?php echo htmlspecialchars($course['image'] ?? 'assets/img/default-course.png'); ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
+                            <img src="<?php echo BASE_URL.'/'.htmlspecialchars($course['image'] ?? 'assets/img/default-course.png'); ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
                             <div class="card-img-overlay d-flex align-items-start justify-content-end p-3">
                                 <span class="badge <?php echo $course['status'] == 'approved' ? 'bg-success' : 'bg-warning'; ?> rounded-pill px-3 py-2">
                                     <?php echo ucfirst($course['status'] ?? 'pending'); ?>
@@ -49,10 +49,10 @@ require 'views/layouts/header.php';
                             </div>
                             <div class="card-img-overlay d-flex align-items-end justify-content-center p-3 opacity-0 hover-overlay">
                                 <div class="d-flex gap-2">
-                                    <a href="index.php?action=manageLessons&courseId=<?php echo $course['id']; ?>" class="btn btn-light btn-sm rounded-pill">
+                                    <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $course['id']; ?>/lessons" class="btn btn-light btn-sm rounded-pill">
                                         <i class="fas fa-list me-1"></i>Lessons
                                     </a>
-                                    <a href="index.php?action=editCourse&courseId=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm rounded-pill">
+                                    <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $course['id']; ?>/edit" class="btn btn-primary btn-sm rounded-pill">
                                         <i class="fas fa-edit me-1"></i>Edit
                                     </a>
                                 </div>
@@ -79,10 +79,10 @@ require 'views/layouts/header.php';
                             </div>
 
                             <div class="d-flex gap-2 mt-auto">
-                                <a href="index.php?action=manageLessons&courseId=<?php echo $course['id']; ?>" class="btn btn-primary rounded-pill flex-fill">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $course['id']; ?>/lessons" class="btn btn-primary rounded-pill flex-fill">
                                     <i class="fas fa-list me-1"></i>Lessons
                                 </a>
-                                <a href="index.php?action=viewEnrolledStudents&courseId=<?php echo $course['id']; ?>" class="btn btn-outline-success rounded-pill">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $course['id']; ?>/students" class="btn btn-outline-success rounded-pill">
                                     <i class="fas fa-users me-1"></i>Students
                                 </a>
                             </div>
@@ -99,7 +99,7 @@ require 'views/layouts/header.php';
                     </div>
                     <h4 class="text-muted fw-bold mb-3">No courses yet</h4>
                     <p class="text-muted fs-5 mb-4">Start creating your first course to share knowledge with students.</p>
-                    <a href="index.php?action=createCourse" class="btn btn-primary btn-lg rounded-pill px-4 py-3">
+                    <a href="<?php echo BASE_PATH; ?>/instructor/course/create" class="btn btn-primary btn-lg rounded-pill px-4 py-3">
                         <i class="fas fa-plus me-2"></i>Create Your First Course
                     </a>
                 </div>
@@ -116,3 +116,7 @@ AOS.init({
 </script>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

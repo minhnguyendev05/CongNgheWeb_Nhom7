@@ -3,7 +3,7 @@ $title = 'Thống kê hệ thống';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -368,4 +368,8 @@ new Chart(userTypeCtx, {
 </style>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+
 
