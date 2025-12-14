@@ -15,13 +15,13 @@ require 'views/layouts/header.php';
                         <h1 class="display-5 fw-bold">
                             <i class="fas fa-crown me-3"></i>Chào mừng trở lại, Quản trị viên!
                         </h1>
-                        <p class="lead mb-4">Quản lý nền tảng và giám sát tất cả hoạt động</p>
+                        <p class="lead mb-4">Manage the platform and monitor all activities</p>
                         <div class="welcome-actions">
                             <a href="<?php echo BASE_PATH; ?>/admin/courses/approve" class="btn-welcome">
-                                <i class="fas fa-check me-2"></i>Duyệt khóa học
+                                <i class="fas fa-check me-2"></i>Approve Courses
                             </a>
                             <a href="<?php echo BASE_PATH; ?>/admin/users" class="btn-welcome">
-                                <i class="fas fa-users me-2"></i>Quản lý người dùng
+                                <i class="fas fa-users me-2"></i>Manage Users
                             </a>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ require 'views/layouts/header.php';
             <div class="stat-card-body">
                 <div class="stat-content">
                     <div class="stat-info">
-                        <h3>Khóa học đã duyệt</h3>
+                        <h3>Approved Courses</h3>
                         <div class="stat-value"><?php echo $totalCourses; ?></div>
                         <div class="stat-label">
                             <i class="fas fa-check"></i>Nội dung đã xuất bản
@@ -81,10 +81,10 @@ require 'views/layouts/header.php';
             <div class="stat-card-body">
                 <div class="stat-content">
                     <div class="stat-info">
-                        <h3>Khóa học chờ duyệt</h3>
+                        <h3>Pending Courses</h3>
                         <div class="stat-value"><?php echo $pendingCourses; ?></div>
                         <div class="stat-label">
-                            <i class="fas fa-clock"></i>Đang chờ xem xét
+                            <i class="fas fa-clock"></i>Pending Review
                         </div>
                     </div>
                     <div class="stat-icon">
@@ -104,7 +104,7 @@ require 'views/layouts/header.php';
                         <h3>Tổng đăng ký</h3>
                         <div class="stat-value"><?php echo $totalEnrollments; ?></div>
                         <div class="stat-label">
-                            <i class="fas fa-graduation-cap"></i>Học tập tích cực
+                            <i class="fas fa-graduation-cap"></i>Active Learning
                         </div>
                     </div>
                     <div class="stat-icon">
@@ -127,7 +127,7 @@ require 'views/layouts/header.php';
                 </div>
                 <div>
                     <h3 class="section-title">Hành động nhanh</h3>
-                    <p class="section-subtitle">Các tác vụ quản trị và quản lý</p>
+                    <p class="section-subtitle">Admin tasks and management</p>
                 </div>
             </div>
 
@@ -137,8 +137,8 @@ require 'views/layouts/header.php';
                         <i class="fas fa-check"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Duyệt khóa học</h6>
-                        <small>Xem xét và xuất bản khóa học chờ duyệt</small>
+                        <h6>Approve Courses</h6>
+                        <small>Review and publish pending courses</small>
                     </div>
                 </a>
 
@@ -147,7 +147,7 @@ require 'views/layouts/header.php';
                         <i class="fas fa-users"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Quản lý người dùng</h6>
+                        <h6>Manage Users</h6>
                         <small>Tài khoản và quyền người dùng</small>
                     </div>
                 </a>
@@ -157,8 +157,8 @@ require 'views/layouts/header.php';
                         <i class="fas fa-tags"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Quản lý danh mục</h6>
-                        <small>Danh mục khóa học và tổ chức</small>
+                        <h6>Manage Categories</h6>
+                        <small>Course categories and organization</small>
                     </div>
                 </a>
 
@@ -167,7 +167,7 @@ require 'views/layouts/header.php';
                         <i class="fas fa-chart-bar"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Xem thống kê</h6>
+                        <h6>View Statistics</h6>
                         <small>Phân tích và báo cáo nền tảng</small>
                     </div>
                 </a>
@@ -192,24 +192,24 @@ require 'views/layouts/header.php';
                             <h6>Người dùng mới đăng ký</h6>
                             <small class="timeline-time">2 phút trước</small>
                         </div>
-                        <p>Một học viên mới đã tham gia nền tảng và sẵn sàng bắt đầu học tập.</p>
+                        <p>A new student has joined the platform and is ready to start learning.</p>
                     </div>
                 </div>
 
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="500">
                     <div class="timeline-content">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h6>Khóa học đã được duyệt</h6>
+                            <h6>Course Approved</h6>
                             <small class="timeline-time">5 phút trước</small>
                         </div>
-                        <p>Một khóa học mới đã được xem xét và xuất bản thành công.</p>
+                        <p>A new course has been reviewed and published successfully.</p>
                     </div>
                 </div>
 
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="600">
                     <div class="timeline-content">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h6>Học viên hoàn thành khóa học</h6>
+                            <h6>Student Completed Course</h6>
                             <small class="timeline-time">12 phút trước</small>
                         </div>
                         <p>Chúc mừng John Doe đã hoàn thành "Web Development Fundamentals"!</p>
@@ -219,10 +219,10 @@ require 'views/layouts/header.php';
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="700">
                     <div class="timeline-content">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h6>Tài liệu mới được tải lên</h6>
+                            <h6>New Materials Uploaded</h6>
                             <small class="timeline-time">18 phút trước</small>
                         </div>
-                        <p>Giảng viên Sarah đã tải lên tài liệu học tập mới cho "Data Science Basics".</p>
+                        <p>Instructor Sarah has uploaded new study materials for "Data Science Basics".</p>
                     </div>
                 </div>
             </div>

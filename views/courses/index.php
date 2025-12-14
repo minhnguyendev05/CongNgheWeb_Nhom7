@@ -369,11 +369,11 @@ require 'views/layouts/header.php';
         <!-- Header Section -->
         <div class="row mb-5">
             <div class="col-12 text-center courses-header" data-aos="fade-up">
-                <h1 class="display-4 fw-bold mb-3">Khám phá các khóa học</h1>
-                <p class="lead fs-5 mb-4">Khám phá các kỹ năng mới và thúc đẩy sự nghiệp của bạn với các khóa học do chuyên gia hướng dẫn</p>
+                <h1 class="display-4 fw-bold mb-3">Explore Courses</h1>
+                <p class="lead fs-5 mb-4">Discover new skills and advance your career with expert-led courses</p>
                 <div class="stats-badges">
-                    <span class="stats-badge"><?php echo count($courses ?? []); ?> Khóa học có sẵn</span>
-                    <span class="stats-badge">Giảng viên chuyên nghiệp</span>
+                    <span class="stats-badge"><?php echo count($courses ?? []); ?> Courses Available</span>
+                    <span class="stats-badge">Professional Instructors</span>
                     <span class="stats-badge">Truy cập trọn đời</span>
                 </div>
             </div>
@@ -386,13 +386,13 @@ require 'views/layouts/header.php';
                     <form method="GET" action="index.php" class="row g-3 align-items-end">
                         <input type="hidden" name="action" value="listCourses">
                         <div class="col-md-6">
-                            <label for="search" class="form-label fw-semibold">Tìm kiếm khóa học</label>
+                            <label for="search" class="form-label fw-semibold">Search Courses</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-light border-end-0">
                                     <i class="fas fa-search text-muted"></i>
                                 </span>
                                 <input type="text" class="form-control border-start-0 ps-0" id="search" name="search"
-                                       placeholder="Tìm kiếm theo tiêu đề, mô tả hoặc giảng viên..."
+                                       placeholder="Search by title, description or instructor..."
                                        value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
                             </div>
                         </div>
@@ -442,7 +442,7 @@ require 'views/layouts/header.php';
                                 <div class="course-meta mt-auto">
                                     <div class="meta-item">
                                         <i class="fas fa-user-circle"></i>
-                                        <span><?php echo htmlspecialchars($course['instructor_name'] ?? 'Giảng viên'); ?></span>
+                                        <span><?php echo htmlspecialchars($course['instructor_name'] ?? 'Instructor'); ?></span>
                                     </div>
                                     <div class="meta-item">
                                         <i class="fas fa-clock"></i>
@@ -450,7 +450,7 @@ require 'views/layouts/header.php';
                                     </div>
                                 </div>
                                 <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>" class="btn btn-view-course rounded-pill fw-semibold">
-                                    <i class="fas fa-eye me-2"></i>Xem chi tiết
+                                    <i class="fas fa-eye me-2"></i>View Details
                                 </a>
                             </div>
                         </div>
@@ -463,10 +463,10 @@ require 'views/layouts/header.php';
                         <div class="mb-4">
                             <i class="fas fa-search"></i>
                         </div>
-                        <h3>Không tìm thấy khóa học nào</h3>
-                        <p>Hãy thử điều chỉnh tiêu chí tìm kiếm hoặc duyệt tất cả khóa học.</p>
+                        <h3>No Courses Found</h3>
+                        <p>Try adjusting your search criteria or browse all courses.</p>
                         <a href="<?php echo BASE_PATH; ?>/courses" class="btn btn-browse-all">
-                            <i class="fas fa-list me-2"></i>Duyệt tất cả khóa học
+                            <i class="fas fa-list me-2"></i>Browse All Courses
                         </a>
                     </div>
                 </div>

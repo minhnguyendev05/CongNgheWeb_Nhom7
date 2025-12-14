@@ -1,6 +1,6 @@
 <?php
 // course_detail.php - Course detail page with soft, eye-friendly colors
-$title = 'Chi tiết khóa học';
+$title = 'Course Details';
 require 'views/layouts/header.php';
 ?>
 
@@ -48,8 +48,8 @@ require 'views/layouts/header.php';
                             <i class="fas fa-book-open text-primary fa-lg"></i>
                         </div>
                         <div>
-                            <h5 class="mb-1 fw-bold text-dark">Nội dung khóa học</h5>
-                            <p class="text-muted mb-0">Khám phá các bài học trong khóa học này</p>
+                            <h5 class="mb-1 fw-bold text-dark">Course Content</h5>
+                            <p class="text-muted mb-0">Explore the lessons in this course</p>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ require 'views/layouts/header.php';
                                     </div>
                                     <div class="lesson-actions">
                                         <a href="<?php echo BASE_PATH; ?>/lesson/<?php echo $lesson['id']; ?>" class="btn btn-sm btn-primary btn-lesson">
-                                            <i class="fas fa-play me-1"></i>Xem
+                                            <i class="fas fa-play me-1"></i>View
                                         </a>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@ require 'views/layouts/header.php';
                     <?php else: ?>
                         <div class="text-center py-5">
                             <i class="fas fa-book fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">Chưa có bài học nào trong khóa học này.</p>
+                            <p class="text-muted">No lessons in this course yet.</p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -93,7 +93,7 @@ require 'views/layouts/header.php';
         <div class="col-lg-4">
             <div class="content-card sticky-top" style="top: 20px;">
                 <div class="card-header bg-white border-0 p-4">
-                    <h5 class="mb-0 fw-bold text-dark">Thông tin khóa học</h5>
+                    <h5 class="mb-0 fw-bold text-dark">Course Information</h5>
                 </div>
                 <div class="card-body p-4">
                     <div class="mb-4">
@@ -101,7 +101,7 @@ require 'views/layouts/header.php';
                         <span class="badge bg-primary fs-6 px-3 py-2 rounded-pill"><?php echo htmlspecialchars($course['category_name'] ?? 'Uncategorized'); ?></span>
                     </div>
                     <div class="mb-4">
-                        <h6 class="fw-bold mb-3">Giảng viên</h6>
+                        <h6 class="fw-bold mb-3">Instructor</h6>
                         <div class="d-flex align-items-center">
                             <i class="fas fa-user-tie text-primary me-2"></i>
                             <span><?php echo htmlspecialchars($course['instructor_name'] ?? 'Unknown'); ?></span>
@@ -124,15 +124,15 @@ require 'views/layouts/header.php';
                     <div class="d-grid gap-2">
                         <?php if ($isEnrolled): ?>
                             <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>/lessons" class="btn btn-primary">
-                                <i class="fas fa-eye me-2"></i>Xem khóa học
+                                <i class="fas fa-eye me-2"></i>View Course
                             </a>
                         <?php else: ?>
                             <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>/enroll" class="btn btn-success">
-                                <i class="fas fa-plus me-2"></i>Đăng ký khóa học
+                                <i class="fas fa-plus me-2"></i>Enroll in Course
                             </a>
                         <?php endif; ?>
                         <a href="<?php echo BASE_PATH; ?>/courses" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+                            <i class="fas fa-arrow-left me-2"></i>Back to List
                         </a>
                     </div>
                 </div>

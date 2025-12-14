@@ -1,6 +1,6 @@
 <?php
 // list_courses.php - Courses listing page with soft, eye-friendly colors
-$title = 'Danh sách khóa học';
+$title = 'Course List';
 require 'views/layouts/header.php';
 ?>
 
@@ -379,12 +379,12 @@ require 'views/layouts/header.php';
                     <div class="row align-items-center">
                         <div class="col-lg-8">
                             <h1 class="display-5 fw-bold">
-                                <i class="fas fa-search me-3"></i>Khám phá khóa học
+                                <i class="fas fa-search me-3"></i>Explore Courses
                             </h1>
-                            <p class="lead mb-4">Tìm kiếm và đăng ký các khóa học phù hợp với bạn</p>
+                            <p class="lead mb-4">Search and enroll in courses that suit you</p>
                             <div class="welcome-actions">
                                 <a href="<?php echo BASE_PATH; ?>/my-courses" class="btn-welcome">
-                                    <i class="fas fa-book me-2"></i>Khóa học của tôi
+                                    <i class="fas fa-book me-2"></i>My Courses
                                 </a>
                                 <a href="<?php echo BASE_PATH; ?>/dashboard" class="btn-welcome">
                                     <i class="fas fa-tachometer-alt me-2"></i>Bảng điều khiển
@@ -407,13 +407,13 @@ require 'views/layouts/header.php';
                 <div class="search-filter-card">
                     <form method="GET" action="<?php echo BASE_PATH; ?>/courses" class="row g-3 align-items-end">
                         <div class="col-md-6">
-                            <label for="search" class="form-label fw-semibold">Tìm kiếm khóa học</label>
+                            <label for="search" class="form-label fw-semibold">Search Courses</label></label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-light border-end-0">
                                     <i class="fas fa-search text-muted"></i>
                                 </span>
                                 <input type="text" class="form-control border-start-0 ps-0" id="search" name="search"
-                                       placeholder="Tìm kiếm theo tiêu đề, mô tả hoặc giảng viên..."
+                                       placeholder="Search by title, description or instructor..."
                                        value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
                             </div>
                         </div>

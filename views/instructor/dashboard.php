@@ -1,5 +1,5 @@
 <?php
-$title = 'Bảng điều khiển giảng viên';
+$title = 'Instructor Dashboard';
 require 'views/layouts/header.php';
 ?>
 
@@ -13,15 +13,15 @@ require 'views/layouts/header.php';
                 <div class="row align-items-center">
                     <div class="col-lg-8">
                         <h1 class="display-5 fw-bold">
-                            <i class="fas fa-chalkboard-teacher me-3"></i>Chào mừng trở lại, giảng viên!
+                            <i class="fas fa-chalkboard-teacher me-3"></i>Welcome Back, Instructor!
                         </h1>
-                        <p class="lead mb-4">Quản lý khóa học và truyền cảm hứng cho học viên trên toàn thế giới</p>
+                        <p class="lead mb-4">Manage your courses and inspire learners worldwide</p>
                         <div class="welcome-actions">
                             <a href="<?php echo BASE_PATH; ?>/instructor/course/create" class="btn-welcome">
-                                <i class="fas fa-plus me-2"></i>Tạo khóa học
+                                <i class="fas fa-plus me-2"></i>Create Course
                             </a>
                             <a href="<?php echo BASE_PATH; ?>/instructor/courses" class="btn-welcome">
-                                <i class="fas fa-cog me-2"></i>Quản lý khóa học
+                                <i class="fas fa-cog me-2"></i>Manage Courses
                             </a>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ require 'views/layouts/header.php';
             <div class="stat-card-body">
                 <div class="stat-content">
                     <div class="stat-info">
-                        <h3>Khóa học của tôi</h3>
+                        <h3>My Courses</h3>
                         <div class="stat-value"><?php echo count($courses); ?></div>
                         <div class="stat-label">
                             <i class="fas fa-arrow-up"></i>Đã xuất bản
@@ -138,8 +138,8 @@ require 'views/layouts/header.php';
                     <i class="fas fa-book"></i>
                 </div>
                 <div>
-                    <h3 class="section-title">Khóa học gần đây</h3>
-                    <p class="section-subtitle">Quản lý và theo dõi các khóa học đã xuất bản</p>
+                    <h3 class="section-title">Recent Courses</h3>
+                    <p class="section-subtitle">Manage and track your published courses</p>
                 </div>
             </div>
 
@@ -167,7 +167,7 @@ require 'views/layouts/header.php';
                                     </div>
                                     <div class="course-actions">
                                         <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $course['id']; ?>/lessons" class="btn-manage">
-                                            <i class="fas fa-cog me-1"></i>Quản lý
+                                            <i class="fas fa-cog me-1"></i>Manage
                                         </a>
                                         <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $course['id']; ?>/students" class="btn-students">
                                             <i class="fas fa-users me-1"></i>Học viên
@@ -183,10 +183,10 @@ require 'views/layouts/header.php';
                     <div class="mb-4">
                         <i class="fas fa-book-open"></i>
                     </div>
-                    <h4>Chưa có khóa học nào</h4>
-                    <p>Bắt đầu tạo khóa học đầu tiên để chia sẻ kiến thức với học viên.</p>
+                    <h4>No Courses Yet</h4>
+                    <p>Start creating your first course to share knowledge with students.</p>
                     <a href="<?php echo BASE_PATH; ?>/instructor/course/create" class="btn-create-first">
-                        <i class="fas fa-plus me-2"></i>Tạo khóa học đầu tiên
+                        <i class="fas fa-plus me-2"></i>Create Your First Course
                     </a>
                 </div>
             <?php endif; ?>
@@ -199,7 +199,7 @@ require 'views/layouts/header.php';
                 </div>
                 <div>
                     <h3 class="actions-title">Hành động nhanh</h3>
-                    <p class="actions-subtitle">Các tác vụ phổ biến của giảng viên</p>
+                    <p class="actions-subtitle">Common instructor tasks</p></p>
                 </div>
             </div>
 
@@ -209,8 +209,8 @@ require 'views/layouts/header.php';
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Tạo khóa học</h6>
-                        <small>Thêm nội dung khóa học mới</small>
+                        <h6>Create Course</h6>
+                        <small>Add new course content</small>
                     </div>
                 </a>
 
@@ -219,8 +219,8 @@ require 'views/layouts/header.php';
                         <i class="fas fa-book"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Quản lý khóa học</h6>
-                        <small>Chỉnh sửa khóa học hiện có</small>
+                        <h6>Manage Courses</h6>
+                        <small>Edit existing courses</small>
                     </div>
                 </a>
 
@@ -229,7 +229,7 @@ require 'views/layouts/header.php';
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Xem thống kê</h6>
+                        <h6>View Statistics</h6>
                         <small>Theo dõi hiệu suất</small>
                     </div>
                 </a>
@@ -239,8 +239,8 @@ require 'views/layouts/header.php';
                         <i class="fas fa-upload"></i>
                     </div>
                     <div class="action-info">
-                        <h6>Tải lên tài liệu</h6>
-                        <small>Thêm tài nguyên khóa học</small>
+                        <h6>Upload Materials</h6>
+                        <small>Add course resources</small>
                     </div>
                 </a>
             </div>

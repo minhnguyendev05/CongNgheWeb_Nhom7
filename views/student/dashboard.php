@@ -15,13 +15,13 @@ require 'views/layouts/header.php';
                         <h1 class="display-5 fw-bold">
                             <i class="fas fa-graduation-cap me-3"></i>Chào mừng trở lại, <?php echo htmlspecialchars($_SESSION['user']['fullname'] ?? 'Học viên'); ?>!
                         </h1>
-                        <p class="lead mb-4">Tiếp tục hành trình học tập và đạt được mục tiêu của bạn</p>
+                        <p class="lead mb-4">Continue your learning journey and achieve your goals</p>
                         <div class="welcome-actions">
                             <a href="<?php echo BASE_PATH; ?>/courses" class="btn-welcome">
-                                <i class="fas fa-search me-2"></i>Khám phá khóa học
+                                <i class="fas fa-search me-2"></i>Explore Courses
                             </a>
                             <a href="<?php echo BASE_PATH; ?>/my-courses" class="btn-welcome">
-                                <i class="fas fa-book me-2"></i>Khóa học của tôi
+                                <i class="fas fa-book me-2"></i>My Courses
                             </a>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ require 'views/layouts/header.php';
             <div class="stat-card-body">
                 <div class="stat-content">
                     <div class="stat-info">
-                        <h3>Khóa học đã đăng ký</h3>
+                        <h3>Enrolled Courses</h3>
                         <div class="stat-value"><?php echo count($enrollments); ?></div>
                         <div class="stat-label">
                             <i class="fas fa-arrow-up"></i>Đang học tích cực
@@ -61,7 +61,7 @@ require 'views/layouts/header.php';
             <div class="stat-card-body">
                 <div class="stat-content">
                     <div class="stat-info">
-                        <h3>Khóa học hoàn thành</h3>
+                        <h3>Completed Courses</h3>
                         <div class="stat-value"><?php echo count(array_filter($enrollments, fn($e) => ($e['progress'] ?? 0) == 100)); ?></div>
                         <div class="stat-label">
                             <i class="fas fa-check"></i>Thành tích
@@ -124,7 +124,7 @@ require 'views/layouts/header.php';
             <div class="section-icon">
                 <i class="fas fa-book"></i>
             </div>
-            <h3 class="section-title">Tiến độ khóa học của tôi</h3>
+            <h3 class="section-title">My Course Progress</h3>
         </div>
 
         <div class="row g-4">
@@ -168,8 +168,8 @@ require 'views/layouts/header.php';
                         <div class="mb-4">
                             <i class="fas fa-book-open"></i>
                         </div>
-                        <h4>Chưa có khóa học nào được đăng ký</h4>
-                        <p>Bắt đầu hành trình học tập của bạn bằng cách đăng ký một khóa học.</p>
+                        <h4>No Courses Enrolled Yet</h4>
+                        <p>Start your learning journey by enrolling in a course.</p>
                         <a href="<?php echo BASE_PATH; ?>/courses" class="btn-browse">
                             <i class="fas fa-search me-2"></i>Khám phá khóa học
                         </a>

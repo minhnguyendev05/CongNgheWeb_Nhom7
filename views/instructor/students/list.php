@@ -118,7 +118,7 @@ require 'views/layouts/header.php';
                                         <tr class="student-row" data-course-id="<?php echo $enrollment['course_id']; ?>">
                                             <td class="ps-4 py-4">
                                                 <div class="d-flex align-items-center">
-                                                    <img src="<?php echo htmlspecialchars($enrollment['avatar'] ?? 'assets/img/default-avatar.jpg'); ?>"
+                                                    <img src="<?= BASE_URL.'/' ?><?php echo htmlspecialchars($enrollment['avatar'] ?? 'assets/img/default-avatar.png'); ?>"
                                                          alt="Avatar" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
                                                     <div>
                                                         <h6 class="mb-1 fw-bold text-dark"><?php echo htmlspecialchars($enrollment['student_name']); ?></h6>

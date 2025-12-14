@@ -16,8 +16,8 @@ require 'views/layouts/header.php';
                         <div class="register-icon">
                             <i class="fas fa-user-plus"></i>
                         </div>
-                        <h2 class="fw-bold mb-2">Tạo tài khoản</h2>
-                        <p class="text-muted mb-0">Tham gia cộng đồng học tập của chúng tôi ngay hôm nay</p>
+                        <h2 class="fw-bold mb-2">Create Account</h2>
+                        <p class="text-muted mb-0">Join our learning community today</p>
                     </div>
 
                     <div class="auth-body">
@@ -57,7 +57,7 @@ require 'views/layouts/header.php';
                                         <span class="input-group-text bg-light border-end-0">
                                             <i class="fas fa-lock text-muted"></i>
                                         </span>
-                                        <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" placeholder="Tạo mật khẩu" minlength="6" required>
+                                        <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" placeholder="Create password" minlength="6" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -72,7 +72,7 @@ require 'views/layouts/header.php';
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-semibold">Bạn muốn tham gia với vai trò nào?</label>
+                                <label class="form-label fw-semibold">What role do you want to join as?</label>
                                 <div class="role-selection">
                                     <div class="role-option" data-role="0">
                                         <div class="role-icon">
@@ -80,7 +80,7 @@ require 'views/layouts/header.php';
                                         </div>
                                         <div class="role-info">
                                             <h6>Học viên</h6>
-                                            <p>Học các khóa học và nhận chứng chỉ</p>
+                                            <p>Take courses and earn certificates</p>
                                         </div>
                                         <input type="radio" name="role" value="0" checked style="margin-left: auto;">
                                     </div>
@@ -89,8 +89,8 @@ require 'views/layouts/header.php';
                                             <i class="fas fa-chalkboard-teacher"></i>
                                         </div>
                                         <div class="role-info">
-                                            <h6>Giảng viên</h6>
-                                            <p>Tạo và quản lý các khóa học của bạn</p>
+                                            <h6>Instructor</h6>
+                                            <p>Create and manage your own courses</p>
                                         </div>
                                         <input type="radio" name="role" value="1" style="margin-left: auto;">
                                     </div>
@@ -99,7 +99,7 @@ require 'views/layouts/header.php';
 
                             <div class="d-grid mb-4">
                                 <button type="submit" class="btn btn-register fw-semibold rounded-3">
-                                    <i class="fas fa-user-plus me-2"></i>Tạo tài khoản
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
                                 </button>
                             </div>
                         </form>

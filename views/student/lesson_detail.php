@@ -73,13 +73,47 @@ require 'views/layouts/header.php';
                     <?php if ($lesson): ?>
                     <!-- Video Player Placeholder -->
                     <div class="video-player mb-4">
-                        <div class="ratio ratio-16x9 bg-dark rounded-4 d-flex align-items-center justify-content-center">
-                            <div class="text-center text-white">
-                                <i class="fas fa-play-circle fa-4x mb-3 opacity-75"></i>
-                                <h5>Video Player</h5>
-                                <p class="mb-0 opacity-75">Lesson video will be displayed here</p>
+                        <?php if (!empty($lesson['video_url'])): ?>
+                            <!-- Embedded Video Player -->
+                            <div class="ratio ratio-16x9 bg-dark rounded-4 overflow-hidden">
+                                <?php
+                                $videoUrl = $lesson['video_url'];
+                                $youtubeMatch = [];
+                                
+                                // Check if it's a YouTube URL and extract video ID
+                                if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $videoUrl, $youtubeMatch)) {
+                                    $youtubeId = $youtubeMatch[1];
+                                    echo '<iframe class="rounded-4" width="100%" height="100%" src="https://www.youtube.com/embed/' . htmlspecialchars($youtubeId) . '" title="Lesson Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                } 
+                                // Check if it's a direct video file
+                                elseif (preg_match('/\.(mp4|webm|ogg)$/i', $videoUrl)) {
+                                    echo '<video class="rounded-4" width="100%" height="100%" controls style="background: #000;">
+                                            <source src="' . htmlspecialchars($videoUrl) . '" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                          </video>';
+                                }
+                                // Otherwise show placeholder
+                                else {
+                                    echo '<div class="d-flex align-items-center justify-content-center h-100" style="background: linear-gradient(135deg, rgba(168, 192, 255, 0.1) 0%, rgba(200, 150, 255, 0.1) 100%);">
+                                            <div class="text-center text-white">
+                                                <i class="fas fa-video fa-4x mb-3 opacity-75"></i>
+                                                <h5>Invalid Video URL</h5>
+                                                <p class="mb-0 opacity-75">The video URL could not be processed</p>
+                                            </div>
+                                          </div>';
+                                }
+                                ?>
                             </div>
-                        </div>
+                        <?php else: ?>
+                            <!-- Video Placeholder -->
+                            <div class="ratio ratio-16x9 bg-dark rounded-4 d-flex align-items-center justify-content-center">
+                                <div class="text-center text-white">
+                                    <i class="fas fa-play-circle fa-4x mb-3 opacity-75"></i>
+                                    <h5>Video Player</h5>
+                                    <p class="mb-0 opacity-75">No video available for this lesson</p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Lesson Description -->
@@ -110,7 +144,7 @@ require 'views/layouts/header.php';
                     <!-- Materials Section -->
                     <?php if (!empty($materials)): ?>
                         <div class="materials-section rounded-3" style="background: rgba(168, 192, 255, 0.02);">
-                            <h6 class="fw-bold mb-3">Tài liệu học tập</h6>
+                            <h6 class="fw-bold mb-3">Study Materials</h6>
                             <div class="materials-list">
                                 <?php foreach ($materials as $material): ?>
                                     <div class="material-item d-flex align-items-center p-3 mb-2 border rounded-3">
@@ -139,7 +173,7 @@ require 'views/layouts/header.php';
                                             <small class="text-muted">Uploaded: <?php echo date('M d, Y', strtotime($material['uploaded_at'])); ?></small>
                                         </div>
                                         <a href="<?php echo BASE_PATH; ?>/material/<?php echo $material['id']; ?>" class="btn btn-sm btn-outline-primary" target="_blank">
-                                            <i class="fas fa-download me-1"></i>Xem
+                                            <i class="fas fa-download me-1"></i>View
                                         </a>
                                     </div>
                                 <?php endforeach; ?>
