@@ -58,9 +58,9 @@ require 'views/layouts/header.php';
                             <i class="fas fa-info-circle me-2"></i>Password Requirements
                         </h6>
                         <ul class="mb-0 small">
-                            <li>At least 8 characters long</li>
-                            <li>Contains uppercase and lowercase letters</li>
-                            <li>Contains numbers or special characters</li>
+                            <li>At least 6 characters long</li>
+                            <!-- <li>Contains uppercase and lowercase letters</li>
+                            <li>Contains numbers or special characters</li> -->
                         </ul>
                     </div>
                 </div>

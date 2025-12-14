@@ -17,7 +17,7 @@ require 'views/layouts/header.php';
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <h2 class="fw-bold mb-2">Chào mừng trở lại</h2>
-                        <p class="text-muted mb-0">Đăng nhập để tiếp tục hành trình học tập của bạn</p>
+                        <p class="text-muted mb-0">Log in to continue your learning journey</p>
                     </div>
 
                     <div class="auth-body">
@@ -58,7 +58,7 @@ require 'views/layouts/header.php';
 
                         <div class="auth-links">
                             <p class="mb-0 text-muted">Chưa có tài khoản?
-                                <a href="<?php echo BASE_PATH; ?>/register" class="fw-semibold text-decoration-none">Tạo tài khoản ngay</a>
+                                <a href="<?php echo BASE_PATH; ?>/register" class="fw-semibold text-decoration-none">Create Account Now</a>
                             </p>
                         </div>
                     </div>

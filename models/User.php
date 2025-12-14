@@ -53,8 +53,8 @@ class User {
 
     public function update() {
         $pdo = Database::getInstance()->getConnection();
-        $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ?, fullname = ?, avatar = ?, role = ?, status = ? WHERE id = ?");
-        $stmt->execute([$this->username, $this->email, $this->fullname, $this->avatar, $this->role, $this->status, $this->id]);
+        $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ?, password = ?, fullname = ?, avatar = ?, role = ?, status = ? WHERE id = ?");
+        $stmt->execute([$this->username, $this->email, $this->password, $this->fullname, $this->avatar, $this->role, $this->status, $this->id]);
     }
 
     public static function delete($id) {

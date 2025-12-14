@@ -20,14 +20,14 @@ class Database {
         }
     }
 
-    public static function getInstance() {
+    public static function getInstance() : Database {
         if (self::$instance === null) {
             self::$instance = new Database();
         }
         return self::$instance;
     }
 
-    public function getConnection() {
+    public function getConnection() : PDO {
         return $this->pdo;
     }
 }

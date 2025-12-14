@@ -159,15 +159,12 @@ class EnrollmentController {
             header('Location: ' . BASE_PATH . '/login');
             exit;
         }
+        // Use optimized JOIN query - no N+1
         $enrollments = Enrollment::getEnrollmentsByStudent($_SESSION['user']['id']);
         
-        // Enrich enrollments with course data
+        // Enrollment model already includes course_title from JOIN
         foreach ($enrollments as &$enrollment) {
-            $course = Course::getCourseById($enrollment['course_id']);
-            if ($course) {
-                $enrollment['title'] = $course['title'] ?? 'Unknown Course';
-                $enrollment['course_data'] = $course;
-            }
+            $enrollment['title'] = $enrollment['course_title'] ?? 'Unknown Course';
         }
         
         require 'views/student/dashboard.php';

@@ -15,8 +15,7 @@ class LessonController {
         // Check if course belongs to instructor
         $course = Course::getCourseById($courseId);
         if ($course['instructor_id'] != $_SESSION['user']['id']) {
-            echo "Access denied.";
-            return;
+            throw new Exception('Access denied: Not course owner', 403);
         }
         $lessons = Lesson::getLessonsByCourse($courseId);
         // Fetch courses for the dropdown filter
@@ -29,9 +28,9 @@ class LessonController {
         // Check ownership
         $course = Course::getCourseById($courseId);
         if ($course['instructor_id'] != $_SESSION['user']['id']) {
-            echo "Access denied.";
-            return;
+            throw new Exception('Access denied: Not course owner', 403);
         }
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['title', 'content', 'order']);
@@ -85,9 +84,9 @@ class LessonController {
         $stmt->execute([$lessonId]);
         $lesson = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$lesson || $lesson['instructor_id'] != $_SESSION['user']['id']) {
-            echo "Access denied.";
-            return;
+            throw new Exception('Access denied: Not course owner', 403);
         }
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
             $errors = ValidationHelper::validateRequired($_POST, ['title', 'content', 'order']);
@@ -144,8 +143,7 @@ class LessonController {
         $stmt->execute([$lessonId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$result || $result['instructor_id'] != $_SESSION['user']['id']) {
-            echo "Access denied.";
-            return;
+            throw new Exception('Access denied: Not course owner', 403);
         }
         $courseId = $result['course_id'];
         Lesson::delete($lessonId);

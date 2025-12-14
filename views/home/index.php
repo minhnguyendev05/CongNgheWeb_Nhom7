@@ -228,7 +228,7 @@ require 'views/layouts/header.php';
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6" data-aos="fade-right">
-                <h1 class="display-4 fw-bold mb-4">Chào mừng đến với Nền tảng Học tập Trực tuyến</h1>
+                <h1 class="display-4 fw-bold mb-4">Welcome to Online Learning Platform</h1>
                 <p class="lead mb-4 fs-5">Học hỏi từ những giảng viên giỏi nhất trên thế giới với các khóa học toàn diện của chúng tôi. Bắt đầu hành trình của bạn ngay hôm nay!</p>
                 <div class="d-flex gap-3 flex-wrap">
                     <a class="btn btn-light btn-lg px-4 py-3 shadow-lg" href="<?php echo BASE_PATH; ?>/courses" role="button">
@@ -257,7 +257,7 @@ require 'views/layouts/header.php';
         <div class="row text-center mb-5">
             <div class="col-12" data-aos="fade-up">
                 <h2 class="display-5 fw-bold mb-3">Tại sao chọn chúng tôi?</h2>
-                <p class="lead">Khám phá những lợi ích của việc học tập với nền tảng của chúng tôi</p>
+                <p class="lead">Discover the benefits of learning with our platform</p>
             </div>
         </div>
         <div class="row g-4">
@@ -275,7 +275,7 @@ require 'views/layouts/header.php';
                     <div class="feature-icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Học tập Linh hoạt</h5>
+                    <h5 class="fw-bold mb-3">Flexible Learning</h5>
                     <p class="text-muted">Học theo tốc độ của bạn, bất cứ lúc nào và bất cứ đâu với nền tảng truy cập 24/7.</p>
                 </div>
             </div>
@@ -329,7 +329,7 @@ require 'views/layouts/header.php';
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8" data-aos="fade-up">
-                <h2>Sẵn sàng bắt đầu hành trình học tập?</h2>
+                <h2>Ready to Start Your Learning Journey?</h2>
                 <p>Tham gia cộng đồng học viên của chúng tôi và mở khóa tiềm năng của bạn với các khóa học chất lượng cao.</p>
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
                     <a href="<?php echo BASE_PATH; ?>/register" class="btn btn-primary">

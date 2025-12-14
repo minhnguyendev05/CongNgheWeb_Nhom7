@@ -38,7 +38,18 @@ class Course {
 
     public static function getCoursesByInstructor($instructorId) {
         $pdo = Database::getInstance()->getConnection();
-        $stmt = $pdo->prepare("SELECT * FROM courses WHERE instructor_id = ?");
+        $stmt = $pdo->prepare("
+            SELECT 
+                c.*,
+                COUNT(DISTINCT e.id) as enrollment_count,
+                COUNT(DISTINCT l.id) as lesson_count
+            FROM courses c
+            LEFT JOIN enrollments e ON c.id = e.course_id
+            LEFT JOIN lessons l ON c.id = l.course_id
+            WHERE c.instructor_id = ?
+            GROUP BY c.id
+            ORDER BY c.created_at DESC
+        ");
         $stmt->execute([$instructorId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -59,6 +70,27 @@ class Course {
 
     public static function delete($id) {
         $pdo = Database::getInstance()->getConnection();
+        
+        // Get all lessons for this course
+        $stmtLessons = $pdo->prepare("SELECT id FROM lessons WHERE course_id = ?");
+        $stmtLessons->execute([$id]);
+        $lessons = $stmtLessons->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Delete all materials for all lessons in this course
+        foreach ($lessons as $lesson) {
+            $stmtMaterials = $pdo->prepare("DELETE FROM materials WHERE lesson_id = ?");
+            $stmtMaterials->execute([$lesson['id']]);
+        }
+        
+        // Delete all lessons in this course
+        $stmtDeleteLessons = $pdo->prepare("DELETE FROM lessons WHERE course_id = ?");
+        $stmtDeleteLessons->execute([$id]);
+        
+        // Delete all enrollments for this course
+        $stmtDeleteEnrollments = $pdo->prepare("DELETE FROM enrollments WHERE course_id = ?");
+        $stmtDeleteEnrollments->execute([$id]);
+        
+        // Delete the course itself
         $stmt = $pdo->prepare("DELETE FROM courses WHERE id = ?");
         $stmt->execute([$id]);
     }
