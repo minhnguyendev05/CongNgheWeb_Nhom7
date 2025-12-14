@@ -1,5 +1,6 @@
 <?php
-// index.php - Courses listing page with soft, eye-friendly colors
+// list_courses.php - Courses listing page with soft, eye-friendly colors
+$title = 'Danh sách khóa học';
 require 'views/layouts/header.php';
 ?>
 
@@ -159,6 +160,8 @@ require 'views/layouts/header.php';
         transition: all 0.3s ease;
         overflow: hidden;
         height: 100%;
+        min-width: 320px;
+        max-width: 400px;
     }
 
     .course-card:hover {
@@ -193,6 +196,7 @@ require 'views/layouts/header.php';
     .hover-overlay {
         background: rgba(0,0,0,0.7);
         transition: opacity 0.3s ease;
+        backdrop-filter: blur(2px);
     }
 
     .course-card:hover .hover-overlay {
@@ -221,10 +225,13 @@ require 'views/layouts/header.php';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 1.5rem;
-        padding: 1rem 0;
+        margin-bottom: 1rem;
+        padding: 0.75rem 0;
         border-top: 1px solid var(--soft-border);
         border-bottom: 1px solid var(--soft-border);
+        background: rgba(248, 249, 250, 0.5);
+        border-radius: 8px;
+        margin-top: auto;
     }
 
     .meta-item {
@@ -239,22 +246,52 @@ require 'views/layouts/header.php';
         color: var(--soft-primary);
     }
 
-    .btn-view-course {
-        background: var(--soft-gradient);
-        border: none;
-        border-radius: 50px;
-        padding: 0.75rem 1.5rem;
-        font-weight: 600;
-        color: white;
-        width: 100%;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(168, 192, 255, 0.3);
+    .card-actions {
+        margin-top: 1rem;
     }
 
-    .btn-view-course:hover {
-        background: linear-gradient(135deg, #8ba7ff 0%, #a8d5b8 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(168, 192, 255, 0.4);
+    .card-actions .btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+        border-width: 2px;
+        transition: all 0.3s ease;
+    }
+
+    /* .card-actions .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    } */
+
+    .card-actions .btn-outline-primary:hover {
+        background: var(--soft-primary);
+        border-color: var(--soft-primary);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(168, 192, 255, 0.3);
+    }
+
+    .card-actions .btn-primary:hover {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
+
+    .card-actions .btn-success:hover {
+        background: linear-gradient(135deg, #218838 0%, #1aa085 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    /* Courses Grid */
+    .courses-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 400px));
+        gap: 1.5rem;
+        /* justify-content: center; */
+    }
+
+    .empty-wrapper {
+        grid-column: 1 / -1;
     }
 
     /* Empty State */
@@ -302,37 +339,6 @@ require 'views/layouts/header.php';
         box-shadow: 0 8px 25px rgba(168, 192, 255, 0.4);
     }
 
-    /* Pagination */
-    .pagination {
-        margin-top: 3rem;
-    }
-
-    .page-link {
-        color: var(--soft-text);
-        border: 2px solid var(--soft-border);
-        border-radius: 50px !important;
-        margin: 0 0.25rem;
-        padding: 0.75rem 1.25rem;
-        font-weight: 600;
-        background: white;
-        transition: all 0.3s ease;
-    }
-
-    .page-link:hover {
-        color: white;
-        background: var(--soft-primary);
-        border-color: var(--soft-primary);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(168, 192, 255, 0.3);
-    }
-
-    .page-item.active .page-link {
-        background: var(--soft-gradient);
-        border-color: var(--soft-primary);
-        color: white;
-        box-shadow: 0 4px 15px rgba(168, 192, 255, 0.3);
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
         .courses-header {
@@ -367,14 +373,30 @@ require 'views/layouts/header.php';
 <div class="courses-container">
     <div class="container-fluid content-padding">
         <!-- Header Section -->
-        <div class="row mb-5">
-            <div class="col-12 text-center courses-header" data-aos="fade-up">
-                <h1 class="display-4 fw-bold mb-3">Khám phá các khóa học</h1>
-                <p class="lead fs-5 mb-4">Khám phá các kỹ năng mới và thúc đẩy sự nghiệp của bạn với các khóa học do chuyên gia hướng dẫn</p>
-                <div class="stats-badges">
-                    <span class="stats-badge"><?php echo count($courses ?? []); ?> Khóa học có sẵn</span>
-                    <span class="stats-badge">Giảng viên chuyên nghiệp</span>
-                    <span class="stats-badge">Truy cập trọn đời</span>
+        <div class="row mb-5" data-aos="fade-down">
+            <div class="col-12">
+                <div class="welcome-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h1 class="display-5 fw-bold">
+                                <i class="fas fa-search me-3"></i>Khám phá khóa học
+                            </h1>
+                            <p class="lead mb-4">Tìm kiếm và đăng ký các khóa học phù hợp với bạn</p>
+                            <div class="welcome-actions">
+                                <a href="<?php echo BASE_PATH; ?>/my-courses" class="btn-welcome">
+                                    <i class="fas fa-book me-2"></i>Khóa học của tôi
+                                </a>
+                                <a href="<?php echo BASE_PATH; ?>/dashboard" class="btn-welcome">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Bảng điều khiển
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <div class="welcome-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -383,8 +405,7 @@ require 'views/layouts/header.php';
         <div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
             <div class="col-12">
                 <div class="search-filter-card">
-                    <form method="GET" action="index.php" class="row g-3 align-items-end">
-                        <input type="hidden" name="action" value="listCourses">
+                    <form method="GET" action="<?php echo BASE_PATH; ?>/courses" class="row g-3 align-items-end">
                         <div class="col-md-6">
                             <label for="search" class="form-label fw-semibold">Tìm kiếm khóa học</label>
                             <div class="input-group input-group-lg">
@@ -419,21 +440,32 @@ require 'views/layouts/header.php';
         </div>
 
         <!-- Courses Grid -->
-        <div class="row g-4">
+        <div class="courses-grid">
             <?php if (!empty($courses)): ?>
                 <?php $delay = 0; ?>
                 <?php foreach ($courses as $course): ?>
-                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>">
+                    <div data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>">
                         <div class="course-card h-100">
                             <div class="card-img-wrapper position-relative">
-                                <img src="<?php echo htmlspecialchars($course['image'] ?? 'assets/img/default-course.jpg'); ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
+                                <img src="<?php echo htmlspecialchars($course['image'] ?? 'assets/img/default-course.png'); ?>" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;">
                                 <div class="card-img-overlay d-flex align-items-start justify-content-end p-3">
                                     <span class="course-category-badge"><?php echo htmlspecialchars($course['category_name'] ?? 'Tổng quát'); ?></span>
                                 </div>
-                                <div class="card-img-overlay d-flex align-items-end justify-content-center p-3 hover-overlay">
-                                    <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>" class="btn btn-light btn-lg rounded-pill shadow">
-                                        <i class="fas fa-play-circle me-2"></i>Bắt đầu học
-                                    </a>
+                                <div class="card-img-overlay d-flex align-items-end justify-content-center p-3 hover-overlay opacity-0">
+                                    <div class="d-flex gap-2">
+                                        <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>" class="btn btn-light btn-sm rounded-pill shadow-sm">
+                                            <i class="fas fa-eye me-1"></i>Xem
+                                        </a>
+                                        <?php if (in_array($course['id'], $enrolledCourses)): ?>
+                                            <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>/lessons" class="btn btn-primary btn-sm rounded-pill shadow-sm">
+                                                <i class="fas fa-play me-1"></i>Xem khóa học
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>/enroll" class="btn btn-success btn-sm rounded-pill shadow-sm">
+                                                <i class="fas fa-plus me-1"></i>Đăng ký
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body d-flex flex-column">
@@ -446,19 +478,36 @@ require 'views/layouts/header.php';
                                     </div>
                                     <div class="meta-item">
                                         <i class="fas fa-clock"></i>
-                                        <span><?php echo $course['duration_weeks'] ?? 'N/A'; ?> tuần</span></span>
+                                        <span><?php echo $course['duration_weeks'] ?? 'N/A'; ?> tuần</span>
                                     </div>
                                 </div>
-                                <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>" class="btn btn-view-course rounded-pill fw-semibold">
-                                    <i class="fas fa-eye me-2"></i>Xem chi tiết
-                                </a>
+                                <div class="card-actions mt-3">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>" class="btn btn-outline-primary btn-sm w-100 rounded-pill fw-semibold">
+                                                <i class="fas fa-eye me-1"></i>Chi tiết
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <?php if (in_array($course['id'], $enrolledCourses)): ?>
+                                                <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>/lessons" class="btn btn-primary btn-sm w-100 rounded-pill fw-semibold">
+                                                    <i class="fas fa-play me-1"></i>Xem khóa học
+                                                </a>
+                                            <?php else: ?>
+                                                <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>/enroll" class="btn btn-success btn-sm w-100 rounded-pill fw-semibold">
+                                                    <i class="fas fa-plus me-1"></i>Đăng ký
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <?php $delay += 100; if ($delay > 400) $delay = 0; ?>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="col-12" data-aos="fade-up">
+                <div class="empty-wrapper" data-aos="fade-up">
                     <div class="empty-state">
                         <div class="mb-4">
                             <i class="fas fa-search"></i>
@@ -472,48 +521,6 @@ require 'views/layouts/header.php';
                 </div>
             <?php endif; ?>
         </div>
-
-        <!-- Pagination -->
-        <?php if (isset($totalPages) && $totalPages > 1): ?>
-            <div class="row mt-5" data-aos="fade-up">
-                <div class="col-12">
-                    <nav aria-label="Course pagination">
-                        <ul class="pagination justify-content-center pagination-lg">
-                            <?php
-                            $currentPage = $currentPage ?? 1;
-                            $startPage = max(1, $currentPage - 2);
-                            $endPage = min($totalPages, $currentPage + 2);
-                            ?>
-
-                            <!-- Previous Button -->
-                            <?php if ($currentPage > 1): ?>
-                                <li class="page-item">
-                                    <a class="page-link rounded-pill me-2 px-4 py-3" href="<?php echo BASE_PATH; ?>/courses?page=<?php echo $currentPage - 1; ?>&search=<?php echo urlencode($_GET['search'] ?? ''); ?>&category=<?php echo $_GET['category'] ?? ''; ?>" aria-label="Previous">
-                                        <i class="fas fa-chevron-left me-1"></i>Trước
-                                    </a>
-                                </li>
-                            <?php endif; ?>
-
-                            <!-- Page Numbers -->
-                            <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                                <li class="page-item <?php echo ($i == $currentPage) ? 'active' : ''; ?>">
-                                    <a class="page-link rounded-pill mx-1 px-4 py-3" href="<?php echo BASE_PATH; ?>/courses?page=<?php echo $i; ?>&search=<?php echo urlencode($_GET['search'] ?? ''); ?>&category=<?php echo $_GET['category'] ?? ''; ?>"><?php echo $i; ?></a>
-                                </li>
-                            <?php endfor; ?>
-
-                            <!-- Next Button -->
-                            <?php if ($currentPage < $totalPages): ?>
-                                <li class="page-item">
-                                    <a class="page-link rounded-pill ms-2 px-4 py-3" href="<?php echo BASE_PATH; ?>/courses?page=<?php echo $currentPage + 1; ?>&search=<?php echo urlencode($_GET['search'] ?? ''); ?>&category=<?php echo $_GET['category'] ?? ''; ?>" aria-label="Next">
-                                        Sau<i class="fas fa-chevron-right ms-1"></i>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        <?php endif; ?>
     </div>
 </div>
 

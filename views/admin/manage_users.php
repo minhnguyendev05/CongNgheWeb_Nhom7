@@ -3,7 +3,7 @@ $title = 'Manage Users';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -190,7 +190,7 @@ require 'views/layouts/header.php';
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="POST" action="index.php?action=createUser" id="addUserForm">
+                <form method="POST" action="<?php echo BASE_PATH; ?>/admin/user/create" id="addUserForm">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="fullname" class="form-label fw-semibold">Full Name</label>
@@ -229,3 +229,7 @@ require 'views/layouts/header.php';
 </div>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

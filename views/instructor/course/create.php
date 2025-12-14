@@ -3,7 +3,7 @@ $title = 'Create Course';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid dashboard-container">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -46,24 +46,32 @@ require 'views/layouts/header.php';
                     </div>
                 </div>
                 <div class="card-body p-4">
-                    <form method="POST" action="index.php?action=createCourse" enctype="multipart/form-data" class="row g-4">
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i><?php echo htmlspecialchars($error); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <?php endif; ?>
+                    <form method="POST" action="" enctype="multipart/form-data" class="row g-4">
                         <div class="col-md-8">
                             <div class="mb-4">
                                 <label for="title" class="form-label fw-semibold">Course Title</label>
-                                <input type="text" class="form-control form-control-lg rounded-pill" id="title" name="title"
-                                       placeholder="Enter an engaging course title..." required>
+                                <input type="text" class="form-control rounded-2" id="title" name="title"
+                                    placeholder="Enter an engaging course title..." minlength="3" maxlength="255" required>
+                                <small class="form-text text-muted">3-255 characters</small>
                             </div>
 
                             <div class="mb-4">
                                 <label for="description" class="form-label fw-semibold">Course Description</label>
-                                <textarea class="form-control rounded-3" id="description" name="description" rows="6"
-                                          placeholder="Describe what students will learn..." required></textarea>
+                                <textarea class="form-control rounded-2" id="description" name="description" rows="6"
+                                    placeholder="Describe what students will learn..." minlength="10" required></textarea>
+                                <small class="form-text text-muted">Minimum 10 characters</small>
                             </div>
 
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label for="category" class="form-label fw-semibold">Category</label>
-                                    <select class="form-select form-select-lg rounded-pill" id="category" name="category_id" required>
+                                    <select class="form-select rounded-2" id="category" name="category_id" required>
                                         <option value="">Select Category</option>
                                         <?php foreach ($categories ?? [] as $category): ?>
                                             <option value="<?php echo $category['id']; ?>"><?php echo htmlspecialchars($category['name']); ?></option>
@@ -72,20 +80,22 @@ require 'views/layouts/header.php';
                                 </div>
                                 <div class="col-md-6">
                                     <label for="duration" class="form-label fw-semibold">Duration (weeks)</label>
-                                    <input type="number" class="form-control form-control-lg rounded-pill" id="duration" name="duration_weeks"
-                                           placeholder="e.g., 4" min="1" required>
+                                    <input type="number" class="form-control rounded-2" id="duration" name="duration_weeks"
+                                        placeholder="e.g., 4" min="1" max="999" required>
+                                    <small class="form-text text-muted">Positive number</small>
                                 </div>
                             </div>
 
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label for="price" class="form-label fw-semibold">Price ($)</label>
-                                    <input type="number" class="form-control form-control-lg rounded-pill" id="price" name="price"
-                                           placeholder="e.g., 99" min="0" step="0.01" required>
+                                    <input type="number" class="form-control rounded-2" id="price" name="price"
+                                        placeholder="e.g., 99" min="0" step="0.01" required>
+                                    <small class="form-text text-muted">Non-negative number</small>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="level" class="form-label fw-semibold">Level</label>
-                                    <select class="form-select form-select-lg rounded-pill" id="level" name="level">
+                                    <select class="form-select rounded-2" id="level" name="level" required>
                                         <option value="">Select Level</option>
                                         <option value="beginner">Beginner</option>
                                         <option value="intermediate">Intermediate</option>
@@ -105,19 +115,37 @@ require 'views/layouts/header.php';
                                     <p class="text-muted small">Upload an attractive image for your course</p>
                                 </div>
 
+                                <div id="imagePreview" class="mb-3 text-center" style="display: none;">
+                                    <img id="previewImg" src="" alt="Preview" class="img-fluid rounded-2" style="max-height: 200px; object-fit: cover;">
+                                    <p class="text-muted small mt-2" id="fileName"></p>
+                                </div>
+
                                 <div class="mb-3">
-                                    <input type="file" class="form-control rounded-pill" id="image" name="image" accept="image/*">
+                                    <input type="file" class="form-control rounded-2" id="image" name="image" accept="image/*">
                                     <div class="form-text">Supported formats: JPG, PNG, GIF. Max size: 5MB</div>
                                 </div>
 
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill">
+                                <!-- <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary rounded-2">
                                         <i class="fas fa-plus me-2"></i>Create Course
                                     </button>
-                                    <a href="index.php?action=manageCourses" class="btn btn-outline-secondary rounded-pill">
+                                    <a href="<?php echo BASE_PATH; ?>/instructor/courses" class="btn btn-outline-secondary rounded-2">
                                         <i class="fas fa-arrow-left me-2"></i>Back to Courses
                                     </a>
-                                </div>
+                                </div> -->
+
+                            </div>
+
+                        </div>
+                        <div class="col-12">
+                            <hr class="my-4">
+                            <div class="d-flex gap-3 justify-content-end">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/courses" class="btn btn-outline-secondary rounded-2 px-4">
+                                    <i class="fas fa-arrow-left me-2"></i>Back to Courses
+                                </a>
+                                <button type="submit" class="btn btn-primary rounded-2 px-4">
+                                    <i class="fas fa-save me-2"></i>Create Course
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -161,10 +189,19 @@ require 'views/layouts/header.php';
 </div>
 
 <script>
-AOS.init({
-    duration: 800,
-    once: true
-});
+    // Image preview
+    document.getElementById('image').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('previewImg').src = event.target.result;
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('imagePreview').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
 
 <?php require 'views/layouts/footer.php'; ?>

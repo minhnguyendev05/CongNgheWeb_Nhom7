@@ -3,7 +3,7 @@ $title = 'Upload Material';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid dashboard-container">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -46,7 +46,7 @@ require 'views/layouts/header.php';
                     </div>
                 </div>
                 <div class="card-body p-4">
-                    <form method="POST" action="index.php?action=uploadMaterial" enctype="multipart/form-data" class="row g-4">
+                    <form method="POST" enctype="multipart/form-data" class="row g-4">
                         <div class="col-md-8">
                             <div class="mb-4">
                                 <label for="lesson_id" class="form-label fw-bold text-dark">Lesson <span class="text-danger">*</span></label>
@@ -103,7 +103,7 @@ require 'views/layouts/header.php';
                         <div class="col-12">
                             <hr class="my-4">
                             <div class="d-flex gap-3 justify-content-end">
-                                <a href="index.php?action=manageMaterials" class="btn btn-outline-secondary btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/courses" class="btn btn-outline-secondary btn-lg rounded-pill px-4">
                                     <i class="fas fa-arrow-left me-2"></i>Cancel
                                 </a>
                                 <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4">
@@ -175,6 +175,14 @@ AOS.init({
     once: true
 });
 
+document.getElementById('lesson_id').addEventListener('change', function() {
+    const lessonId = this.value;
+    const form = document.querySelector('form');
+    if (lessonId) {
+        form.action = `<?php echo BASE_PATH; ?>/instructor/lesson/${lessonId}/upload`;
+    }
+});
+
 <?php
 function getFileIcon($filePath) {
     $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
@@ -211,3 +219,7 @@ function formatFileSize($bytes) {
 </script>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

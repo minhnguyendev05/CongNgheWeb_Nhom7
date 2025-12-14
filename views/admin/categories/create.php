@@ -3,7 +3,7 @@ $title = 'Create Category';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -46,19 +46,27 @@ require 'views/layouts/header.php';
                     </div>
                 </div>
                 <div class="card-body p-4">
-                    <form method="POST" action="index.php?action=createCategory">
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i><?php echo htmlspecialchars($error); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <?php endif; ?>
+                    <form method="POST" action="<?php echo BASE_PATH; ?>/admin/category/create">
                         <div class="row">
                             <div class="col-12 mb-4">
                                 <label for="name" class="form-label fw-semibold">Category Name</label>
-                                <input type="text" class="form-control rounded-pill" id="name" name="name" placeholder="Enter category name" required>
+                                <input type="text" class="form-control rounded-pill" id="name" name="name" placeholder="Enter category name" minlength="2" maxlength="100" required>
+                                <small class="form-text text-muted">2-100 characters</small>
                             </div>
                             <div class="col-12 mb-4">
                                 <label for="description" class="form-label fw-semibold">Description</label>
-                                <textarea class="form-control rounded-4" id="description" name="description" rows="4" placeholder="Describe the category purpose"></textarea>
+                                <textarea class="form-control rounded-4" id="description" name="description" rows="4" placeholder="Describe the category purpose" maxlength="500"></textarea>
+                                <small class="form-text text-muted">Maximum 500 characters</small>
                             </div>
                         </div>
                         <div class="d-flex gap-3 justify-content-end">
-                            <a href="index.php?action=manageCategories" class="btn btn-outline-secondary rounded-pill px-4">
+                            <a href="<?php echo BASE_PATH; ?>/admin/categories" class="btn btn-outline-secondary rounded-pill px-4">
                                 <i class="fas fa-arrow-left me-2"></i>Cancel
                             </a>
                             <button type="submit" class="btn btn-success rounded-pill px-4">
@@ -73,3 +81,7 @@ require 'views/layouts/header.php';
 </div>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+
