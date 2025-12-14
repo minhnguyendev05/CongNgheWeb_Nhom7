@@ -231,10 +231,10 @@ require 'views/layouts/header.php';
                 <h1 class="display-4 fw-bold mb-4">Chào mừng đến với Nền tảng Học tập Trực tuyến</h1>
                 <p class="lead mb-4 fs-5">Học hỏi từ những giảng viên giỏi nhất trên thế giới với các khóa học toàn diện của chúng tôi. Bắt đầu hành trình của bạn ngay hôm nay!</p>
                 <div class="d-flex gap-3 flex-wrap">
-                    <a class="btn btn-light btn-lg px-4 py-3 shadow-lg" href="index.php?action=listCourses" role="button">
+                    <a class="btn btn-light btn-lg px-4 py-3 shadow-lg" href="<?php echo BASE_PATH; ?>/courses" role="button">
                         <i class="fas fa-search me-2"></i>Khám phá Khóa học
                     </a>
-                    <a class="btn btn-outline-light btn-lg px-4 py-3" href="index.php?action=register">
+                    <a class="btn btn-outline-light btn-lg px-4 py-3" href="<?php echo BASE_PATH; ?>/register">
                         <i class="fas fa-user-plus me-2"></i>Bắt đầu
                     </a>
                 </div>
@@ -332,10 +332,10 @@ require 'views/layouts/header.php';
                 <h2>Sẵn sàng bắt đầu hành trình học tập?</h2>
                 <p>Tham gia cộng đồng học viên của chúng tôi và mở khóa tiềm năng của bạn với các khóa học chất lượng cao.</p>
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
-                    <a href="index.php?action=register" class="btn btn-primary">
-                        <i class="fas fa-rocket me-2"></i>Đăng ký ngay
+                    <a href="<?php echo BASE_PATH; ?>/register" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-2"></i>Đăng ký ngay
                     </a>
-                    <a href="index.php?action=listCourses" class="btn btn-outline-primary">
+                    <a href="<?php echo BASE_PATH; ?>/courses" class="btn btn-outline-primary">
                         <i class="fas fa-search me-2"></i>Khám phá khóa học
                     </a>
                 </div>
@@ -345,3 +345,7 @@ require 'views/layouts/header.php';
 </section>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

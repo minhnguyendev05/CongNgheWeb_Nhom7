@@ -3,7 +3,7 @@ $title = 'My Courses';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid dashboard-container">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -16,10 +16,10 @@ require 'views/layouts/header.php';
                             </h1>
                             <p class="lead mb-4 opacity-75">Overview of all your created courses</p>
                             <div class="d-flex gap-3 flex-wrap">
-                                <a href="index.php?action=createCourse" class="btn btn-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/course/create" class="btn btn-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-plus me-2"></i>Create New Course
                                 </a>
-                                <a href="index.php?action=dashboard" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                                <a href="<?php echo BASE_PATH; ?>/instructor/dashboard" class="btn btn-outline-light btn-lg rounded-pill px-4">
                                     <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                                 </a>
                             </div>
@@ -97,10 +97,10 @@ require 'views/layouts/header.php';
                             </div>
                             <div class="card-img-overlay d-flex align-items-end justify-content-center p-3 opacity-0 hover-overlay">
                                 <div class="btn-group">
-                                    <a href="index.php?action=editCourse&id=<?php echo $course['id']; ?>" class="btn btn-light btn-sm rounded-pill me-1">
+                                    <a href="<?php echo BASE_PATH; ?>/instructor/course/<?php echo $course['id']; ?>/edit" class="btn btn-light btn-sm rounded-pill me-1">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="index.php?action=viewCourse&id=<?php echo $course['id']; ?>" class="btn btn-light btn-sm rounded-pill me-1">
+                                    <a href="<?php echo BASE_PATH; ?>/course/<?php echo $course['id']; ?>" class="btn btn-light btn-sm rounded-pill me-1">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <button type="button" class="btn btn-light btn-sm rounded-pill" onclick="confirmDelete(<?php echo $course['id']; ?>)">
@@ -149,7 +149,7 @@ require 'views/layouts/header.php';
                         <i class="fas fa-book fa-4x text-muted mb-3"></i>
                         <h5 class="text-muted">No courses found</h5>
                         <p class="text-muted">Start by creating your first course</p>
-                        <a href="index.php?action=createCourse" class="btn btn-primary rounded-pill px-4">
+                        <a href="<?php echo BASE_PATH; ?>/instructor/course/create" class="btn btn-primary rounded-pill px-4">
                             <i class="fas fa-plus me-2"></i>Create First Course
                         </a>
                     </div>
@@ -174,7 +174,9 @@ require 'views/layouts/header.php';
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                <a href="#" id="deleteLink" class="btn btn-danger rounded-pill px-4">Delete Course</a>
+                <form method="POST" action="" id="deleteForm" style="display: inline;">
+                    <button type="submit" class="btn btn-danger rounded-pill px-4">Delete Course</button>
+                </form>
             </div>
         </div>
     </div>
@@ -187,11 +189,15 @@ AOS.init({
 });
 
 function confirmDelete(courseId) {
-    const deleteLink = document.getElementById('deleteLink');
-    deleteLink.href = `index.php?action=deleteCourse&id=${courseId}`;
+    const deleteForm = document.getElementById('deleteForm');
+    deleteForm.action = `<?php echo BASE_PATH; ?>/instructor/course/${courseId}/delete`;
     const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
     modal.show();
 }
 </script>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+

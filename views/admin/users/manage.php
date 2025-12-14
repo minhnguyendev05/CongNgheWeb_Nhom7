@@ -3,7 +3,7 @@ $title = 'Manage Users';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -45,7 +45,7 @@ require 'views/layouts/header.php';
                                 <p class="text-muted mb-0">Manage user accounts and roles</p>
                             </div>
                         </div>
-                        <a href="index.php?action=createUser" class="btn btn-success rounded-pill px-4">
+                        <a href="<?php echo BASE_PATH; ?>/admin/user/create" class="btn btn-success rounded-pill px-4">
                             <i class="fas fa-plus me-2"></i>Create User
                         </a>
                     </div>
@@ -82,15 +82,19 @@ require 'views/layouts/header.php';
                                     </td>
                                     <td class="pe-4 py-3">
                                         <div class="d-flex gap-2">
-                                            <a href="index.php?action=editUser&id=<?php echo $user['id']; ?>" class="btn btn-outline-warning btn-sm rounded-pill">
+                                            <a href="<?php echo BASE_PATH; ?>/admin/user/<?php echo $user['id']; ?>/edit" class="btn btn-outline-warning btn-sm rounded-pill">
                                                 <i class="fas fa-edit me-1"></i>Edit
                                             </a>
-                                            <a href="index.php?action=toggleUserStatus&id=<?php echo $user['id']; ?>" class="btn btn-outline-info btn-sm rounded-pill" onclick="return confirm('Are you sure you want to toggle this user\'s status?')">
-                                                <i class="fas fa-toggle-on me-1"></i>Toggle
-                                            </a>
-                                            <a href="index.php?action=deleteUser&id=<?php echo $user['id']; ?>" class="btn btn-outline-danger btn-sm rounded-pill" onclick="return confirm('Are you sure you want to delete this user?')">
-                                                <i class="fas fa-trash me-1"></i>Delete
-                                            </a>
+                                            <form method="POST" action="<?php echo BASE_PATH; ?>/admin/user/<?php echo $user['id']; ?>/toggle" style="display: inline;">
+                                                <button type="submit" class="btn btn-outline-info btn-sm rounded-pill" onclick="return confirm('Are you sure you want to toggle this user\'s status?')">
+                                                    <i class="fas fa-toggle-on me-1"></i>Toggle
+                                                </button>
+                                            </form>
+                                            <form method="POST" action="<?php echo BASE_PATH; ?>/admin/user/<?php echo $user['id']; ?>/delete" style="display: inline;">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill" onclick="return confirm('Are you sure you want to delete this user?')">
+                                                    <i class="fas fa-trash me-1"></i>Delete
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -105,4 +109,8 @@ require 'views/layouts/header.php';
 </div>
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+
 

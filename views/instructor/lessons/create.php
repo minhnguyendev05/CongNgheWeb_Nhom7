@@ -3,7 +3,7 @@ $title = 'Create Lesson';
 require 'views/layouts/header.php';
 ?>
 
-<div class="container-fluid dashboard-container">
+<div class="container-fluid content-padding">
     <!-- Header Section -->
     <div class="row mb-5" data-aos="fade-down">
         <div class="col-12">
@@ -46,57 +46,54 @@ require 'views/layouts/header.php';
                     </div>
                 </div>
                 <div class="card-body p-4">
-                    <form method="POST" action="index.php?action=createLesson" enctype="multipart/form-data" class="row g-4">
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i><?php echo htmlspecialchars($error); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <?php endif; ?>
+                    <form method="POST" enctype="multipart/form-data" class="row g-4">
                         <div class="col-md-8">
                             <div class="mb-4">
-                                <label for="course_id" class="form-label fw-bold text-dark">Course <span class="text-danger">*</span></label>
-                                <select class="form-select form-select-lg rounded-3 border-0 shadow-sm" id="course_id" name="course_id" required>
-                                    <option value="">Select Course</option>
-                                    <?php foreach ($courses as $course): ?>
-                                        <option value="<?php echo $course['id']; ?>">
-                                            <?php echo htmlspecialchars($course['title']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <label for="title" class="form-label fw-semibold">Lesson Title</label>
+                                <input type="text" class="form-control rounded-2" id="title" name="title" minlength="3" maxlength="255" required>
+                                <small class="form-text text-muted">3-255 characters</small>
                             </div>
 
                             <div class="mb-4">
-                                <label for="title" class="form-label fw-bold text-dark">Lesson Title <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-lg rounded-3 border-0 shadow-sm" id="title" name="title" required>
+                                <label for="description" class="form-label fw-semibold">Lesson Description</label>
+                                <textarea class="form-control rounded-2" id="description" name="description" rows="4"></textarea>
                             </div>
 
                             <div class="mb-4">
-                                <label for="description" class="form-label fw-bold text-dark">Lesson Description</label>
-                                <textarea class="form-control rounded-3 border-0 shadow-sm" id="description" name="description" rows="4"></textarea>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="content" class="form-label fw-bold text-dark">Lesson Content <span class="text-danger">*</span></label>
-                                <textarea class="form-control rounded-3 border-0 shadow-sm" id="content" name="content" rows="8" required></textarea>
+                                <label for="content" class="form-label fw-semibold">Lesson Content</label>
+                                <textarea class="form-control rounded-2" id="content" name="content" rows="8" minlength="10" required></textarea>
+                                <small class="form-text text-muted">Minimum 10 characters</small>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="mb-4">
-                                <label for="video_url" class="form-label fw-bold text-dark">Video URL</label>
-                                <input type="url" class="form-control form-control-lg rounded-3 border-0 shadow-sm" id="video_url" name="video_url" placeholder="https://youtube.com/...">
+                                <label for="video_url" class="form-label fw-semibold">Video URL</label>
+                                <input type="url" class="form-control rounded-2" id="video_url" name="video_url" placeholder="https://youtube.com/...">
                                 <div class="form-text">Optional: Add a video link for this lesson</div>
                             </div>
 
                             <div class="mb-4">
-                                <label for="order" class="form-label fw-bold text-dark">Order Number <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control form-control-lg rounded-3 border-0 shadow-sm" id="order" name="order" min="1" required>
-                                <div class="form-text">The order this lesson appears in the course</div>
+                                <label for="order" class="form-label fw-semibold">Order Number</label>
+                                <input type="number" class="form-control rounded-2" id="order" name="order" min="1" max="999" required>
+                                <div class="form-text">The order this lesson appears in the course</small>
                             </div>
 
                             <div class="mb-4">
-                                <label for="duration" class="form-label fw-bold text-dark">Duration (minutes)</label>
-                                <input type="number" class="form-control form-control-lg rounded-3 border-0 shadow-sm" id="duration" name="duration" min="0">
+                                <label for="duration" class="form-label fw-semibold">Duration (minutes)</label>
+                                <input type="number" class="form-control rounded-2" id="duration" name="duration" min="1" max="10000">
+                                <small class="form-text text-muted">Positive number</small>
                             </div>
 
                             <div class="mb-4">
-                                <label for="materials" class="form-label fw-bold text-dark">Additional Materials</label>
-                                <input type="file" class="form-control rounded-3 border-0 shadow-sm" id="materials" name="materials[]" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.zip">
+                                <label for="materials" class="form-label fw-semibold">Additional Materials</label>
+                                <input type="file" class="form-control rounded-2" id="materials" name="materials[]" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.zip">
                                 <div class="form-text">Upload supplementary materials (PDF, DOC, PPT, ZIP)</div>
                             </div>
                         </div>
@@ -104,10 +101,10 @@ require 'views/layouts/header.php';
                         <div class="col-12">
                             <hr class="my-4">
                             <div class="d-flex gap-3 justify-content-end">
-                                <a href="index.php?action=manageLessons" class="btn btn-outline-secondary btn-lg rounded-pill px-4">
-                                    <i class="fas fa-arrow-left me-2"></i>Cancel
+                                <a href="<?php echo BASE_PATH; ?>/instructor/courses" class="btn btn-outline-secondary rounded-2 px-4">
+                                    <i class="fas fa-arrow-left me-2"></i>Back to Courses
                                 </a>
-                                <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4">
+                                <button type="submit" class="btn btn-primary rounded-2 px-4">
                                     <i class="fas fa-save me-2"></i>Create Lesson
                                 </button>
                             </div>
@@ -119,11 +116,10 @@ require 'views/layouts/header.php';
     </div>
 </div>
 
-<script>
-AOS.init({
-    duration: 800,
-    once: true
-});
-</script>
+
 
 <?php require 'views/layouts/footer.php'; ?>
+
+
+
+
